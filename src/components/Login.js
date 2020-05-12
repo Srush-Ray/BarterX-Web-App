@@ -15,7 +15,7 @@ export class Login extends Component {
               placeholder="Username "
               required
             />
-            <label htmlFor="password">Password</label>
+            <label htmlFor="password">Password:</label>
             <input
               type="password"
               id="password"
@@ -26,6 +26,13 @@ export class Login extends Component {
             <button className="btn" type="submit">
               Login
             </button>
+            <div className="reg">
+              <a href="#">Forgot password?</a>
+
+              <a id="signup" href="./Register">
+                dont have an account ? Signup
+              </a>
+            </div>
           </div>
         </form>
       </div>

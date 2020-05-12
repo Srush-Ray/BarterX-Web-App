@@ -2,30 +2,39 @@
   box-sizing: border-box;
 }
 body {
-  background-color: aliceblue;
+  background-image: url(./images/loginblur.jpg);
 }
 h1 {
   width: 100%;
   text-align: center;
+  color: white;
+  text-decoration: underline;
 }
 .container {
+  background: transparent;
   margin: auto;
-  width: 37%;
-  border: 2px solid black;
+  margin-top: 20vh;
+  width: 40vw;
   padding: 10px;
-  background-color: antiquewhite;
 }
 .conatiner .login {
   width: 90%;
   padding: 15px;
-  border: 2px solid blue;
+}
+.login label {
+  color: white;
 }
 .login input[type="text"],
 input[type="password"],
 input[type="email"] {
+  border: none;
+  background: transparent;
+  border-bottom: 1px solid black;
+  color: white;
   width: 100%;
   padding: 2%;
   margin-bottom: 2%;
+  font-size: 1.2rem;
 }
 .login .btn {
   margin-top: 2%;
@@ -36,16 +45,33 @@ input[type="email"] {
   width: 100%;
   cursor: pointer;
 }
+.login .btn:hover {
+  background-color: darkolivegreen;
+  color: white;
+}
+.login .reg a {
+  margin-top: 2%;
+  display: block;
+  text-decoration: none;
+  font-size: 1rem;
+  color: #ffffff;
+}
+.login .reg a:hover {
+  color: darkgreen;
+}
+.login .reg #signup {
+}
 @media (max-width: 600px) {
   .container {
-    height: 100%;
-    width: 100%;
+    height: 100vh;
+    width: 100vw;
+    margin: 0px;
   }
   .login input[type="text"],
   input[type="password"],
   input[type="email"] {
     width: 100%;
-    padding: 5%;
+    padding: 2%;
     margin-bottom: 3%;
   }
 }

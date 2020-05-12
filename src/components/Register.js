@@ -34,6 +34,9 @@ export class Register extends Component {
             <button className="btn" type="submit">
               Submit
             </button>
+            <div className="reg">
+              <a href="/">Have an account?Login</a>
+            </div>
           </div>
         </form>
       </div>
