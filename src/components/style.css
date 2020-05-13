@@ -61,9 +61,9 @@ input[type="email"] {
 }
 .login .reg #signup {
 }
-@media (max-width: 600px) {
+@media (max-width: 720px) {
   .container {
-    height: 100vh;
+    height: 200vw;
     width: 100vw;
     margin: 0px;
   }
