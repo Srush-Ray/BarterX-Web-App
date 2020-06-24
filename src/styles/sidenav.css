@@ -2,28 +2,23 @@
   text-align: center;
 } */
 .sidenav{
-  background-color: #dff0f1;
+  background-color: #333;
   height: 100vh;
 }
-.logoname{
-  text-align: center;
-  color: black;
-  font-style: italic;
-  font-family: Arial, Helvetica, sans-serif;
-}
+
 #center {
   text-align: center;
 }
 
 p {
-  color: rgb(0, 0, 0);
-  font-size: small;
+  color: #00BCD6;
+  font-size: medium;
   text-align: center;
 }
 hr{
   border: 0;
   height: 1px;
-  background: #333;
+  background: rgb(198, 196, 196);
 }
 .line {
   border-left: 1px solid grey;
@@ -35,29 +30,32 @@ hr{
 }
 
 #li {
-  color: gray;
+  color: rgb(142, 141, 141);
   padding: 0.5rem;
+  font-size: larger;
 }
 #li:hover {
-  fill: rgb(7, 23, 128);
+  color: rgb(255, 255, 255);
   cursor: pointer;
+  font-weight: bold;
 }
 #li.sidenav-active {
-  color: rgb(7, 23, 128);
+  color: #00BCD6;
   border-left: 0.3rem solid white;
+  font-weight: bold;
 }
 .sidenav-active svg {
-  fill: grey;
+  fill: white;
 }
 
 #li:hover #svg {
-  fill: rgb(167,167,167);
+  fill: rgb(223, 215, 215);
 }
 #svg {
-  fill: grey;
+  fill: white;
 }
 #svg:hover {
-  fill: white;
+  fill: grey;
 }
 
 #info {

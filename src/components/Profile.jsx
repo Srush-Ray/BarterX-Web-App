@@ -49,7 +49,7 @@ class Profile extends Component {
             <Sidenav activeComponent="1" />
           </div>
           <div className="col-sm-10">
-            <div className="container mt-2">
+            <div className="container-fluid mt-2">
               <h4 style={{color:'#FFFFFF'}}>Profile</h4>
               <div className="text-muted" >
                 <h6 style={{color:'#FFFFFF'}}> Username: {this.state.data.username} </h6>
@@ -62,7 +62,7 @@ class Profile extends Component {
                     <strong>Update</strong> the information :
                   </div>
                   <hr />
-                  <div className="container">
+                  <div className="container-fluid">
                     
                     <div className="form-row my-2"  style={{color:'#FFFFFF'}}>
                     <div className="col-sm-6">

@@ -14,20 +14,37 @@ class ProductList extends Component {
       isLoading: true,
       products: [
         {
-          _id: "1",
-            name:'xyz',
-            description:"",
+          productId	:"1",
+          name:	"xyz",
+          timestamp:	"24-06-2020",
+          category	:"abc",
+          status	:"Y",
+          ownerName	:"trial",
+          ownerId	:"123654",
+          productDescription:"poduct1"	
           
         },
         {
-          _id: "2",
-            name:'xyz',
-            description:"",
+         
+          productId	:"2",
+          name:	"xyz",
+          timestamp:	"24-06-2020",
+          category	:"abc",
+          status	:"Y",
+          ownerName	:"trial",
+          ownerId	:"123654",
+          productDescription:"poduct1"
           
         },{
-            _id: "1",
-              name:'xyz',
-              description:"",
+           
+          productId	:"2",
+          name:	"xyz",
+          timestamp:	"24-06-2020",
+          category	:"abc",
+          status	:"Y",
+          ownerName	:"trial",
+          ownerId	:"123654",
+          productDescription:"poduct1"
             
           },
       ],
@@ -65,18 +82,23 @@ class ProductList extends Component {
   renderCardData() {
     return this.state.products.map((product) => {
       const {
-        _id,
-        name,
-        description,
+          productId	,
+          name,
+          timestamp,
+          category,
+          status	,
+          ownerName	,
+          ownerId	,
+          productDescription
       } = product; //destructuring
       return (
         <div
           className="col-sm-6"
-          key={_id}
+          key={productId}
         >
           <div className="card my-2">
             <div className="card-header" onClick={this.expandInline.bind(this)}>
-             {_id}
+             {productId}
               <span className="float-right">
               <span className="mx-1">
               
@@ -86,9 +108,12 @@ class ProductList extends Component {
               <small className="text-muted">Name: {name}</small>
             </div>
             <div className="card-body">
-            <b> Description : </b>
-              {description}
-              <br />
+            <b> Timestamp : </b>{timestamp}<br />
+            <b> Category : </b>{category}<br />
+            <b> Status : </b>{status}<br />
+            <b> Owner Name : </b>{ownerName}<br />
+            <b> Owner ID : </b>{ownerId}<br />
+            <b> Description : </b>{productDescription}<br />
             
             </div>
           </div>
@@ -104,7 +129,7 @@ class ProductList extends Component {
             <Sidenav activeComponent="2" />
           </div>
           <div className="col-sm-10 of">
-            <div className="container">
+            <div className="container-fluid">
               <h4 className="mt-2" style={{color:'#FFFFFF'}}>
                Product List
                 <div className="float-right">

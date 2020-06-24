@@ -6,6 +6,7 @@ import {
   MdPermIdentity,
   MdMenu
 } from "react-icons/md";
+import barter from '../components/images/bartar.png'; 
 
 class Sidenav extends Component {
   constructor(props) {
@@ -22,9 +23,10 @@ class Sidenav extends Component {
     return (
         <div>
         <div className="sidenav" >
-        <h4 className="text-dark text-center mt-2 logoname">BaterX</h4>
+        <a href="/home" className=" mt-2"><img src={barter} alt="logo" style={{width:'150px',height:"50px",marginLeft:'20px',marginTop:'10px'}} className="img"/></a>
+        {/*<h4 className="text-dark text-center mt-2 ">BaterX</h4>*/}
         <hr />
-        <p className="mt-4">Menu</p>
+        <p className="mt-4"><u> Menu</u></p>
         <ul id="ul">
           <Link to="/home">
           <li id="li" className={activeNow === "1" ? "sidenav-active" : ""}>
