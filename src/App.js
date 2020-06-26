@@ -6,6 +6,8 @@ import Register from "./components/Register";
 import ProductList from './components/AllProducts';
 import Profile from './components/Profile';
 import ProductSettings from './components/ProductSettings';
+import Search from './components/Search'
+import Transactions from './components/Transactions'
 
 function App() {
   return (
@@ -16,6 +18,8 @@ function App() {
         <Route path="/products" component={ProductList} />
         <Route path="/home" component={Profile} />
         <Route path="/productSettings" component={ProductSettings} />
+        <Route path="/Search" component={Search} />
+        <Route path="/Transactions" component={Transactions} />
 
       </Switch>
     </Router>

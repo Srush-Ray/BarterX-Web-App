@@ -52,6 +52,22 @@ class Sidenav extends Component {
           Product Settings
           </li>
           </Link>
+          <Link to="/Search">
+          <li id="li" className={activeNow === "4" ? "sidenav-active" : ""}>
+          <span className="mx-2">
+          <MdAddCircle />
+          </span>
+          Search
+          </li>
+          </Link>
+          <Link to="/Transactions">
+          <li id="li" className={activeNow === "5" ? "sidenav-active" : ""}>
+          <span className="mx-2">
+          <MdAddCircle />
+          </span>
+          Previous Transactions
+          </li>
+          </Link>
           
           </ul>
           </div>
