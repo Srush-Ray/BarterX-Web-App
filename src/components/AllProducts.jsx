@@ -37,7 +37,7 @@ class ProductList extends Component {
           
         },{
            
-          productId	:"2",
+          productId	:"3",
           name:	"xyz",
           timestamp:	"24-06-2020",
           category	:"abc",

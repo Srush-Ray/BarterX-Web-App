@@ -1,24 +1,41 @@
 import React, { Component } from "react";
 import Sidenav from "../container/SideNav";
 // import { showProfile } from "../store/actions";
+import { connect } from "react-redux";
+import axios from "axios";
+import { Card, CardTitle, CardBody } from "reactstrap";
 
 class Profile extends Component {
-  state = {
-    isLoading: true,
-    data: {
-      _id: null,
-      affiliation:'xyhsb',
-      emailId: "srush@gmail.com",
-      username: "srush",
-    },
-  };
+  
   constructor(props) {
     super(props);
+    this.state = {
+      isLoading: true,
+      emailID:"",
+      wallet:{
+        orgName:"",
+        org_aff:"",
+        usr_id:"",
+      }
+      
+    };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   async componentDidMount() {
-   
-  }
+      let localStorageData=localStorage.wallet.split(",");
+      const usrid=localStorageData[0];
+      const orgName=localStorageData[1];
+      const orgAff=localStorageData[2]; 
+      const email=localStorageData[3];
+      // console.log(email);
+      this.setState({emailID:email});
+      let wallet={};
+      wallet["usr_id"]=usrid;
+      wallet["orgName"]=orgName;
+      wallet["org_aff"]=orgAff;
+      this.setState({wallet:wallet});
+
+}
   loadData(user) {
     this.setState({ data: user });
   }
@@ -50,65 +67,107 @@ class Profile extends Component {
           </div>
           <div className="col-sm-10">
             <div className="container-fluid mt-2">
-              <h4 style={{color:'#FFFFFF'}}>Profile</h4>
+              <h4 style={{color:'#FFFFFF'}}> <u> Profile</u></h4>
+              <Card style={{boxShadow:'7px 7px rgb(167,167,167'}}>
+              <CardBody>
+              <CardTitle className="card-header">
               <div className="text-muted" >
-                <h6 style={{color:'#FFFFFF'}}> Username: {this.state.data.username} </h6>
+                <h6> Username: {this.state.wallet.usr_id} </h6>
               </div>
-              <hr />
+              </CardTitle>
+             
               {
+                <div>   
                 <form id="form" onSubmit={this.handleSubmit}>
-                  <div className="alert alert-info">
-                    Click <strong>Edit</strong> to fill in the details and{" "}
-                    <strong>Update</strong> the information :
+                {/* <div className="alert alert-info">
+               Click <strong>Edit</strong> to fill in the details and{" "}
+              <strong>Update</strong> the information :
                   </div>
-                  <hr />
+                  <hr />*/}
                   <div className="container-fluid">
-                    
-                    <div className="form-row my-2"  style={{color:'#FFFFFF'}}>
+                  
+                    <div className="form-row my-2">
                     <div className="col-sm-6">
-                    Affiliation:
+                    Username:
                     <input
-                      readOnly
+                    readOnly
                       type="text"
-                      name="affiliation"
-                      id="affiliation"
-                      placeholder={this.state.data.affiliation}
-                      className="form-control"
+                      name="username"
+                      id="username"
+                      placeholder={this.state.wallet.usr_id}
+                      className="form-control border-0"
+                      style={{background: '#ffffff'}}
                     />
-                  </div>  
+                    </div>  
                     <div className="col-sm-6">
-                        Email Id:
-                        <input
+                    Email Id:
+                    <input
                           readOnly
                           type="email"
                           name="emailId"
                           id="emailId"
-                          placeholder={this.state.data.emailId}
-                          className="form-control"
+                          placeholder={this.state.emailID}
+                          className="form-control border-0"
+                          style={{background: '#ffffff'}}
                         />
-                      </div>
+                        </div>
 
-                    </div>
+                        </div>
                   </div>
-                  <hr />
-                  <div className="text-right">
+                 {/* <hr />
+                 <div className="text-right">
                     <button
                       type="button"
                       id="editButton"
                       className="btn btn-secondary"
                       onClick={this.editform}
-                    >
+                      >
                       Edit
-                    </button>
+                      </button>
                     <button className="btn btn-light mx-2" type="reset">
-                      Reset
+                    Reset
                     </button>
                     <button type="submit" className="btn btn-primary" id="cancelBtn" disabled>
-                      Update Profile
+                    Update Profile
                     </button>
-                  </div>
-                </form>
-              }
+                    </div> */} 
+                    </form>
+                    <hr/>
+                    <h5 >Wallet Details</h5>
+                    <form>
+                    <div className="form-row my-2" >
+                    <div className="col-sm-6">
+                    Affiliation:
+                    <input
+                    readOnly
+                      type="text"
+                      name="affiliation"
+                      id="affiliation"
+                      placeholder={this.state.wallet.org_aff}
+                      className="form-control border-0"
+                      style={{background: '#ffffff'}}
+                    />
+                    </div>  
+                    <div className="col-sm-6">
+                   Organisation Name:
+                    <input
+                          readOnly
+                          type="email"
+                          name="orgname"
+                          id="orgname"
+                          placeholder={this.state.wallet.orgName}
+                          className="form-control border-0"
+                          style={{background: '#ffffff'}}
+                        />
+                        </div>
+
+                        </div>
+                    </form>
+                    </div>
+                    
+                  }
+                  </CardBody>
+                  </Card>
             </div>
           </div>
         </div>
@@ -117,4 +176,8 @@ class Profile extends Component {
   }
 }
 
-export default Profile;
+export default connect((store)=>({
+  path:store.walletPath
+}),{
+
+})(Profile);

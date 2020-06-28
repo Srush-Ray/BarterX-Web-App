@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Sidenav from "../container/SideNav";
 import Array from './Array'
-
 class Search extends Component {
     constructor() {
         super();
@@ -64,7 +63,7 @@ class Search extends Component {
         );
 
         const arr = filtered.map((product, index) => {
-            return < Array
+            return <Array key={product.productId}
             name= {product.name}
             category = {product.category}
             // status = {product.status}
@@ -82,7 +81,7 @@ class Search extends Component {
                 <input type="text" value={this.state.search} onChange={this.UpdateSearch.bind(this)} placeholder="Enter Product Name.." style={{width:'30%', height:'6%', borderRadius:'10px', marginLeft:'35%',marginRight:'35%', marginTop:'2%', padding:'1% 1%'}}/>             
                 <div className="main-footer" style={{ marginTop:'3%', height:'auto', width:'auto' }}>
                 <div className="container" style={{ height:'auto', width:'auto' }}>
-                    <div className="row" style={{marginTop:'3%', height:'auto', width:'auto'}}>
+                    <div className="row" style={{marginTop:'3%', height:'auto', width:'auto'}} >
                     {arr} 
                     </div>
                 </div>

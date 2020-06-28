@@ -4,7 +4,9 @@ import '../styles/sidenav.css'
 import {
   MdAddCircle,
   MdPermIdentity,
-  MdMenu
+  MdMenu,
+  MdSearch,
+  MdCreditCard
 } from "react-icons/md";
 import barter from '../components/images/bartar.png'; 
 
@@ -55,7 +57,7 @@ class Sidenav extends Component {
           <Link to="/Search">
           <li id="li" className={activeNow === "4" ? "sidenav-active" : ""}>
           <span className="mx-2">
-          <MdAddCircle />
+          <MdSearch />
           </span>
           Search
           </li>
@@ -63,7 +65,7 @@ class Sidenav extends Component {
           <Link to="/Transactions">
           <li id="li" className={activeNow === "5" ? "sidenav-active" : ""}>
           <span className="mx-2">
-          <MdAddCircle />
+          <MdCreditCard />
           </span>
           Previous Transactions
           </li>

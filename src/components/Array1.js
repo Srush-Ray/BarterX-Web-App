@@ -13,8 +13,8 @@ function Array1 (props)  {
                     <p><b>OwnerID : {props.ownerid}</b></p>
                     <p><b>Date : {props.date}</b></p>
                     <Nav >
-                    <p ><Link className="nav-link "><b>details</b></Link></p>
-                    <p ><Link className="nav-link text-dark"><b>Close</b></Link></p>
+                   { /*<p ><Link className="nav-link" to=""><b>details</b></Link></p>
+    <p ><Link className="nav-link text-dark" to=""><b>Close</b></Link></p>*/}
                     </Nav>
                 </div>  
                 

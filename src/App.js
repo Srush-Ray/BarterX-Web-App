@@ -1,6 +1,8 @@
 import React from "react";
+import { store } from "./store";
 import "./App.css";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { Provider } from "react-redux";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import ProductList from './components/AllProducts';
@@ -11,6 +13,7 @@ import Transactions from './components/Transactions'
 
 function App() {
   return (
+    <Provider store={store}>
     <Router>
       <Switch>
         <Route exact path="/" component={Login} />
@@ -23,7 +26,8 @@ function App() {
 
       </Switch>
     </Router>
-  );
+    </Provider>
+    );
 }
 
 export default App;

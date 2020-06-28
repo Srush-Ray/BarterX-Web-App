@@ -87,7 +87,7 @@ class ProductSettings extends Component {
           </div>
           <div className="col-sm-10">
             <div className="container-fluid mt-2">
-              <h4  style={{color:'#FFFFFF'}}>Delete Product</h4>
+              <h4  style={{color:'#FFFFFF'}}>Delete/Update Product</h4>
               <hr />
               {
                 <div  style={{color:'#FFFFFF'}}>
@@ -127,13 +127,13 @@ class ProductSettings extends Component {
                     <hr />
                       <Card>
                       <CardBody>
-                        <CardTitle>
+                        <CardTitle className="card-header">
                           {/*<h4>{this.state.products.name}</h4>*/}
                           <small className="text-muted">
                             {this.state.products.productId}
                           </small>
                         </CardTitle>
-                        <hr />
+                       
                         <table className="table-borderless table-hover table-sm" style={{color:'black',width:'auto'}}>
                           <tbody>
                           <tr>
