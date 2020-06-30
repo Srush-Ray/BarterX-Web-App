@@ -6,6 +6,7 @@ import {
   MdPermIdentity,
   MdMenu,
   MdSearch,
+  MdUpdate,
   MdCreditCard
 } from "react-icons/md";
 import barter from '../components/images/bartar.png'; 
@@ -49,7 +50,7 @@ class Sidenav extends Component {
           <Link to="/productSettings">
           <li id="li" className={activeNow === "3" ? "sidenav-active" : ""}>
           <span className="mx-2">
-          <MdAddCircle />
+          <MdUpdate />
           </span>
           Product Settings
           </li>
@@ -70,7 +71,14 @@ class Sidenav extends Component {
           Previous Transactions
           </li>
           </Link>
-          
+          <Link to="/addproduct">
+          <li id="li" className={activeNow === "6" ? "sidenav-active" : ""}>
+          <span className="mx-2">
+          <MdAddCircle />
+          </span>
+          Add New Product
+          </li>
+          </Link>
           </ul>
           </div>
           </div>

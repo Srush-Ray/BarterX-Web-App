@@ -3,7 +3,7 @@ import "../styles/loginRegister.css";
 import Navbar from "../container/NavBar";
 import image from '../components/images/bartar.png'; 
 import { MdError } from "react-icons/md";
-import {createWallet } from "../store/actions/users";
+import {createWallet,removeSuccess,removeError } from "../store/actions";
 import { connect } from "react-redux";
 import ErrorMessage from "./ErrorMessage";
 import SuccessMessage from "./SuccessMessage";
@@ -39,6 +39,11 @@ export class Register extends Component {
       // history is available by design in this.props when using react-router
    }, 3000);    
    }
+  }
+  componentWillUnmount() {
+    const { removeSuccess,removeError } = this.props;
+    removeSuccess();
+    removeError()
   }
 
   handleSubmit(e) {
@@ -132,6 +137,15 @@ export class Register extends Component {
                   required
                   onChange={this.handleChange}
                 />
+               
+                <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" class="custom-control-input" id="individual" name="type" value="individual" checked/>
+                <label class="custom-control-label" for="individual" style={{color:'white'}}>Individual</label>
+              </div>
+              <div class="custom-control custom-radio custom-control-inline">
+              <input type="radio" class="custom-control-input" id="organisation" name="type" value="organisation" checked/>
+              <label class="custom-control-label" for="organisation" style={{color:'white'}}>Organisation</label>
+            </div>
                 <input
                   type="password"
                   name="password"
@@ -178,5 +192,5 @@ export default connect((store)=>({
   path:store.walletPath,
   user:store.currentUser,
 }),{
-  createWallet,
+  createWallet,removeSuccess,removeError
 })(Register);

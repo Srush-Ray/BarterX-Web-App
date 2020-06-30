@@ -44,7 +44,6 @@ export const setPastTransaction=(transactions)=>({
       try {
         const transactions = await api.call("get", `users/getTxs/${path}`);
           if(transactions===null){
-            console.log("hey")
             dispatch(addError("No transation done yet."));
           }else{
           dispatch(setPastTransaction(transactions));

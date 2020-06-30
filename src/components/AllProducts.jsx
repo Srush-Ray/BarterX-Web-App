@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import Sidenav from "../container/SideNav";
+
+
 import {
 MdDelete,
 MdFormatListBulleted,
@@ -78,7 +80,7 @@ class ProductList extends Component {
       }
     // e.target.parentElement.lastChild.style.display = "block";
   }
- 
+
   renderCardData() {
     return this.state.products.map((product) => {
       const {
@@ -165,7 +167,7 @@ class ProductList extends Component {
                 </div>
               </h4>
               <hr />
-              <div class="row">{this.renderCardData()}</div>
+              <div className="row">{this.renderCardData()}</div>
             </div>
           </div>
         </div>

@@ -10,6 +10,7 @@ import Profile from './components/Profile';
 import ProductSettings from './components/ProductSettings';
 import Search from './components/Search'
 import Transactions from './components/Transactions'
+import AddProduct from './components/AddProduct'
 
 function App() {
   return (
@@ -23,7 +24,7 @@ function App() {
         <Route path="/productSettings" component={ProductSettings} />
         <Route path="/Search" component={Search} />
         <Route path="/Transactions" component={Transactions} />
-
+        <Route path="/addproduct" component={AddProduct} /> 
       </Switch>
     </Router>
     </Provider>

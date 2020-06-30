@@ -1,7 +1,8 @@
 import React, {Component} from 'react' 
 import Sidenav from "../container/SideNav";
 import Array1 from './Array1'
-import {getTransactions} from "../store/actions/users";
+
+import {getTransactions,removeSuccess} from "../store/actions";
 import {connect} from "react-redux"; 
 import ErrorMessage from './ErrorMessage';
 import SuccessMessage from './SuccessMessage';
@@ -16,38 +17,41 @@ class Transactions extends Component {
                     id : "k55521d81p",
                     product: "Iphone X",
                     price: "Rs.20,000",
-                    date: 24-6-2020,
+                    date: "24-6-2020",
                     ownerId: "p687hj22"
                 },
                 {
                     id : "l55521d81p",
                     product: "Iphone X",
                     price: "Rs.20,000",
-                    date: 24-6-2020,
+                    date: "24-6-2020",
                     ownerId: "p687hj22"
                 },
                 {
                     id : "e55521d81p",
                     product: "Iphone X",
                     price: "Rs.20,000",
-                    date: 24-6-2020,
+                    date: "24-6-2020",
                     ownerId: "p687hj22"
                 },
                 {
                     id : "y55521d81p",
                     product: "Iphone X",
                     price: "Rs.20,000",
-                    date: 24-6-2020,
+                    date: "24-6-2020",
                     ownerId: "p687hj22"
                 } 
             ]
         }
     }
     loadData(transaction) {
-        // this.setState({transactions:transaction});
+        this.setState({transactions:transaction});
        
        }
-
+       componentWillUnmount() {
+        const { removeSuccess } = this.props;
+        removeSuccess();
+      }
     componentDidMount() {   
         const { getTransactions } = this.props;
         let localStorageData=localStorage.wallet.split(",");
@@ -62,7 +66,7 @@ class Transactions extends Component {
         // wallet["orgName"]=orgName;
         // wallet["org_aff"]=orgAff;
 
-        // getTransactions("?user_id="+usrid+"&orgName="+orgName).then(() => this.loadData(this.props.pastTransaction));
+        getTransactions("?user_id="+usrid+"&orgName="+orgName).then(() => this.loadData(this.props.pastTransaction));
 
     }
     expandInline(e) {
@@ -152,7 +156,7 @@ class Transactions extends Component {
                
                 <div className="main-footer" style={{ marginTop:'3%', height:'auto', width:'auto' }}>
                 <div className="container" style={{ height:'auto', width:'auto' }}>
-                <div class="row">
+                <div className="row">
                 {this.renderData()}
                     </div>
                 </div>
@@ -170,5 +174,6 @@ class Transactions extends Component {
 export default connect((store)=>({
     transactions:store.pastTransaction,
 }),{
-    getTransactions
+    getTransactions,
+    removeSuccess
 })(Transactions);
