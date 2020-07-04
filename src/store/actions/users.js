@@ -46,9 +46,9 @@ export const setPastTransaction=(transactions)=>({
           if(transactions===null){
             dispatch(addError("No transation done yet."));
           }else{
-          dispatch(setPastTransaction(transactions));
-          dispatch(removeError());
-        }
+            dispatch(setPastTransaction(transactions));
+            dispatch(removeError());  
+          }
       } catch (err) {
         dispatch(addError(err.message));
       }

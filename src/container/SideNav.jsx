@@ -12,6 +12,23 @@ import {
 import barter from '../components/images/bartar.png'; 
 
 class Sidenav extends Component {
+  componentDidMount(){
+    // (function($) {
+    //     "use strict";
+    //     var fullHeight = function() {
+    //         $('.js-fullheight').css('height', $(window).height());
+    //         $(window).resize(function(){
+    //             $('.js-fullheight').css('height', $(window).height());
+    //         });
+    //     };
+    //     fullHeight();
+    //     $('#sidebarCollapse').on('click', function () {
+    //       $('#sidebar').toggleClass('active');
+    //   });
+    
+    // })(jQuery);
+    
+}
   constructor(props) {
     super(props);
     this.handleLogout = this.handleLogout.bind(this);
@@ -25,7 +42,9 @@ class Sidenav extends Component {
     const activeNow = this.props.activeComponent;
     return (
         <div>
+       
         <div className="sidenav" >
+      <div className="collapsible-body navbar-collapse" id="navbarSupportedContent" >
         <a href="/home" className=" mt-2"><img src={barter} alt="logo" style={{width:'150px',height:"50px",marginLeft:'20px',marginTop:'10px'}} className="img"/></a>
         {/*<h4 className="text-dark text-center mt-2 ">BaterX</h4>*/}
         <hr />
@@ -80,6 +99,7 @@ class Sidenav extends Component {
           </li>
           </Link>
           </ul>
+          </div>
           </div>
           </div>
     );

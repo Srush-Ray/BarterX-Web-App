@@ -1,7 +1,7 @@
 /* #center {
   text-align: center;
 } */
-.sidenav{
+/* .sidenav{
   background-color: #333;
   height: 100vh;
 }
@@ -23,43 +23,8 @@ hr{
 .line {
   border-left: 1px solid grey;
 }
-#ul {
-  list-style: none;
-  float: left;
-  padding: 0;
-}
-
-#li {
-  color: rgb(142, 141, 141);
-  padding: 0.5rem;
-  font-size: medium;
-}
-#li:hover {
-  color: rgb(255, 255, 255);
-  cursor: pointer;
-  font-weight: bold;
-}
-#li.sidenav-active {
-  color: #00BCD6;
-  border-left: 0.3rem solid white;
-  font-weight: bold;
-}
-.sidenav-active svg {
-  fill: white;
-}
-
-#li:hover #svg {
-  fill: rgb(223, 215, 215);
-}
-#svg {
-  fill: white;
-}
-#svg:hover {
-  fill: grey;
-}
-
 #info {
   border-top: 1px solid lightgray;
   border-bottom: 1px solid lightgray;
   padding: 10px;
-}
+} */

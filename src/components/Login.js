@@ -11,12 +11,15 @@ export class Login extends Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  
   }
-
+  componentDidMount(){
+    console.log(localStorage);
+  }
   handleChange(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
-
+  
   handleSubmit(e) {
    
   }

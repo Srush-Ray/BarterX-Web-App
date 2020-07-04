@@ -22,7 +22,7 @@ import {
     }
   };
 
-  export const pastTransaction= ( state =[],action)=>{
+  export const pastTransaction= ( state ={},action)=>{
     switch (action.type) {
       case SET_PREVIOUS_TRANSACTION:
         return action.transactions;

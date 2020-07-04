@@ -1,10 +1,11 @@
 import React, { Component, useState } from "react";
 import { Card, CardTitle, Button, CardBody, CardText } from "reactstrap";
 import Sidenav from "../container/SideNav";
-import { readProduct,updateProduct,removeSuccess, removeError } from "../store/actions";
+import { readProduct,updateProduct,removeSuccess, removeError,getProductHistory } from "../store/actions";
 import { connect } from "react-redux";
 import ErrorMessage from "./ErrorMessage";
 import SuccessMessage from "./SuccessMessage";
+import SideNavPage from "../container/SideNavPage";
 
 class ProductSettings extends Component {
  
@@ -13,6 +14,8 @@ class ProductSettings extends Component {
     this.state = {
       isLoading: true,
       showMessage:false,
+      showMessageHistory:false,
+
       emailID:"",
       pid:"",
       wallet:{
@@ -26,11 +29,26 @@ class ProductSettings extends Component {
           name:"",
           Owner:"",
           resource_type_id:"",
-        },         
+        },  
+        producthistory:[
+          {
+            TxId:"",
+            Value:{
+              id:"",
+              name:"",
+              resource_type_id:"",
+              Available:"",
+              Owner:"",
+            },
+            Timestamp:"",
+            IsDelete:"",
+          }
+
+        ]       
     };  
     this.handleSubmitUpdate = this.handleSubmitUpdate.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    // this.handleChange = this.handleChange.bind(this);
+    this.handleSubmitHistory= this.handleSubmitHistory.bind(this);
   }
   async componentDidMount() {
     let localStorageData=localStorage.wallet.split(",");
@@ -47,6 +65,25 @@ class ProductSettings extends Component {
 
     this.setState({wallet:wallet});
 
+}
+loadHisory(history){
+  console.log(history);
+  this.setState({producthistory:history});
+  this.setState({showMessage:true});
+  console.log(this.props);
+}
+handleSubmitHistory(event){
+  event.preventDefault();
+  var formData=new FormData(event.target);
+  // const id= formData.get("pidH") || null;
+  // console.log(id);
+  // const {getProductHistory}=this.props;
+  // let data={};
+  // data["productID"]= formData.get("pidH") || null;
+  // console.log(data);
+  // getProductHistory("?user_id="+this.state.wallet.usr_id+"&orgName="+this.state.wallet.orgName,data).then(
+  //   () => 
+  //   this.loadHisory(this.props.productHistory));
 }
   handleSubmitUpdate(event){
     event.preventDefault();
@@ -99,6 +136,7 @@ class ProductSettings extends Component {
     let obj=JSON.parse(productD);
     console.log(obj);
     this.setState({product:obj});
+    this.setState({showMessageHistory:false});
     // let product={}
    
 //     let productDetails=productD.split(",");
@@ -145,18 +183,16 @@ class ProductSettings extends Component {
   render() {
     return (
       <div>
-        <div className="row no-gutters">
-          <div className="col-sm-2 sidenav">
-            <Sidenav activeComponent="3" />
-          </div>
-          <div className="col-sm-10">
+      <div className="wrapper ">
+      <SideNavPage activeComponent="3" />  
+      <div className="container-fluid">
             <div className="container-fluid mt-2">
-              <h4  style={{color:'#FFFFFF'}}>Delete/Update Product</h4>
+              <h4  style={{color:'#FFFFFF'}}>Delete/Update/Get History of Product</h4>
               <hr />
 
               {
                 <div  style={{color:'#FFFFFF'}}>
-                  Enter product Id to delete :
+                  Enter product Id to delete/update :
                   <form id="form" onSubmit={this.handleSubmit}>
                     <div className="form-row my-2">
                       <div className="col-sm-6">
@@ -181,6 +217,30 @@ class ProductSettings extends Component {
                     </div>
                   </form>
                   <hr />
+                 {/* <form id="form2" onSubmit={this.handleSubmitHistory}>
+                    <div className="form-row my-2">
+                      <div className="col-sm-6">
+                        <input
+                          required
+                          type="text"
+                          name="pidH"
+                          id="pidH"
+                          placeholder="Product Id of get History of product"
+                          className="form-control"
+                        />
+                      </div>
+                      <div className="col-sm-6">
+                        <button
+                          type="submit"
+                          className="btn btn-dark btn-sm mx-2"
+                          //   onClick={this._showMessage(true,this.state.username)}
+                        >
+                          Get History
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+              <hr/>*/}
                   <div>
                     {this.state.showMessage && (
                       <div>
@@ -296,6 +356,78 @@ class ProductSettings extends Component {
                   </div>
                 </div>
               }
+             
+             {  this.state.showMessageHistory &&(
+                <div>
+                <div>
+                <h4  style={{color:'#FFFFFF'}}>Product History</h4>
+                <hr />
+               
+                <Card>
+                <CardBody>
+                  <CardTitle className="card-header">
+                    {/*<h4>{this.state.products.name}</h4>*/}
+                    <small  className="text-muted">
+                      {this.state.producthistory.TxId}
+                    </small>
+                  </CardTitle>
+                 
+                  <table className="table-borderless table-hover table-sm" style={{color:'black',width:'auto'}}>
+                    <tbody>
+                    <tr>
+                    <td>ID</td>
+                    <td>
+                    {this.state.producthistory.Value.id}
+                    </td>
+                  </tr>
+
+                      <tr>
+                        <td>Name</td>
+                        <td>
+                        {this.state.producthistory.value.name}
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td>Category</td>
+                        <td>
+                        {this.state.producthistory.value.resource_type_id}
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td>Available</td>
+                       <td> {this.state.producthistory.value.Available}
+                       </td>
+                      </tr>
+
+                      <tr>
+                        <td>Owner</td>
+                       <td> {this.state.producthistory.value.Owner}
+                       </td>
+                      </tr>
+
+                      <tr>
+                        <td>TImestamp</td>
+                       <td> {this.state.producthistory.Timestamp}
+                       </td>
+                      </tr>
+
+                      <tr>
+                        <td>Deleted?</td>
+                       <td> {this.state.producthistory.IsDelete}
+                       </td>
+                      </tr>
+                    </tbody>
+                  </table>  
+                </CardBody>
+              </Card>             
+                </div>
+                </div>
+             ) 
+            
+             }
+             
               <span>
                 <ErrorMessage />
                 <SuccessMessage />
@@ -308,12 +440,14 @@ class ProductSettings extends Component {
   }
 }
 export default connect((store)=>({
-  product:store.currentProduct
+  product:store.currentProduct,
+  productHistory:store.productHistory
 }),{
   removeSuccess,
   removeError,
   readProduct,
-  updateProduct
+  updateProduct,
+  getProductHistory
 })(ProductSettings);
 // <form id="form" onSubmit={this.handleSubmit}>
                        

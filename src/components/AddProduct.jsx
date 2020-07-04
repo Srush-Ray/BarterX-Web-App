@@ -4,6 +4,7 @@ import { removeSuccess,addSuccess,storeProduct, removeError } from "../store/act
 import ErrorMessage from "../components/ErrorMessage";
 import SuccessMessage from "../components/SuccessMessage";
 import Sidenav from "../container/SideNav";
+import SideNavPage from "../container/SideNavPage";
 
 class AddProduct extends Component {
   constructor(props) {
@@ -47,11 +48,10 @@ class AddProduct extends Component {
   render() {
     return (
       <div>
-        <div className="row no-gutters">
-          <div className="col-sm-2 sidenav">
-            <Sidenav activeComponent="6" />
-          </div>
-          <div className="col-sm-10 of">
+      <div className="wrapper ">
+      <SideNavPage activeComponent="6" />  
+     
+          <div className="container-fluid">
             <div className="container-fluid">
               <h4 className="mt-2" style={{color:'white'}}><u>Add New Product</u></h4>
               
@@ -81,7 +81,7 @@ class AddProduct extends Component {
                           type="text"
                           name="productname"
                           id="productname"
-                          placeholder="eg. Honda City"
+                          placeholder="eg. Samsung"
                           className="form-control"
                         />
                       </div>
@@ -95,7 +95,7 @@ class AddProduct extends Component {
                           type="text"
                           name="category"
                           id="category"
-                          placeholder="eg. Cars"
+                          placeholder="eg. Mobile"
                           className="form-control"
                         />
                       </div>

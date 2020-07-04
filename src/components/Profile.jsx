@@ -4,6 +4,8 @@ import Sidenav from "../container/SideNav";
 import { connect } from "react-redux";
 import axios from "axios";
 import { Card, CardTitle, CardBody } from "reactstrap";
+import SideNavPage from "../container/SideNavPage";
+
 
 class Profile extends Component {
   
@@ -22,6 +24,7 @@ class Profile extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   async componentDidMount() {
+    
       let localStorageData=localStorage.wallet.split(",");
       const usrid=localStorageData[0];
       const orgName=localStorageData[1];
@@ -60,13 +63,13 @@ class Profile extends Component {
 
   render() {
     return (
-      <div>
-        <div className="row no-gutters">
-          <div className="col-sm-2 sidenav">
+      <div className="wrapper">
+      <SideNavPage activeComponent="1" />
+       
+          {/*<div className="col-sm-2 sidenav">
             <Sidenav activeComponent="1" />
-          </div>
-          <div className="col-sm-10">
-            <div className="container-fluid mt-2">
+    </div>*/}   
+           <div className="container-fluid">
               <h4 style={{color:'#FFFFFF'}}> <u> Profile</u></h4>
               <Card style={{boxShadow:'7px 7px rgb(167,167,167'}}>
               <CardBody>
@@ -170,8 +173,6 @@ class Profile extends Component {
                   </Card>
             </div>
           </div>
-        </div>
-      </div>
     );
   }
 }

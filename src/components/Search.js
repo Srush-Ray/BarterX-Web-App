@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Sidenav from "../container/SideNav";
 import Array from './Array'
+import SideNavPage from "../container/SideNavPage";
 class Search extends Component {
     constructor() {
         super();
@@ -71,12 +72,9 @@ class Search extends Component {
             />
         })
         return (
-            <div>
-                <div className="row no-gutters">
-                <div className="col-sm-2 sidenav">
-                    <Sidenav activeComponent="4" />
-                </div>
-                <div className="col-sm-10">
+            <div className="wrapper ">
+             <SideNavPage activeComponent="4" />  
+                <div className="container-fluid">
                 {/* <input type="text" value={this.state.search} onChange={this.UpdateSearch.bind(this)} /> */}
                 <input type="text" value={this.state.search} onChange={this.UpdateSearch.bind(this)} placeholder="Enter Product Name.." style={{width:'30%', height:'6%', borderRadius:'10px', marginLeft:'35%',marginRight:'35%', marginTop:'2%', padding:'1% 1%'}}/>             
                 <div className="main-footer" style={{ marginTop:'3%', height:'auto', width:'auto' }}>
@@ -88,7 +86,6 @@ class Search extends Component {
                 </div>
                 </div>
                 </div>
-            </div>
         )
     }
 }

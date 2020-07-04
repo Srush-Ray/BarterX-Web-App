@@ -6,7 +6,7 @@ const Navbar = ({ auth, logout }) => (
   <div className="navbar-wrapper">
       <div className="container-fluid">
   <nav className="navbar fixed-top navbar-expand-lg navbar-dark " style={{backgroundColor:'#F7F7F9'}}>
-  <img src={barter} alt="logo" style={{width:'70px',height:"40px"}} className="img"/>
+  <img src={barter} alt="logo" style={{width:'80px',height:"35px"}} className="img"/>
   <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span className="navbar-toggler-icon"></span>
   </button>

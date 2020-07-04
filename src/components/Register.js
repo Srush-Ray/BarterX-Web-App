@@ -138,13 +138,13 @@ export class Register extends Component {
                   onChange={this.handleChange}
                 />
                
-                <div class="custom-control custom-radio custom-control-inline">
-                <input type="radio" class="custom-control-input" id="individual" name="type" value="individual" checked/>
-                <label class="custom-control-label" for="individual" style={{color:'white'}}>Individual</label>
+                <div className="custom-control custom-radio custom-control-inline">
+                <input type="radio" className="custom-control-input" id="individual" name="type" value="individual" defaultChecked/>
+                <label className="custom-control-label" htmlFor="individual" style={{color:'white'}}>Individual</label>
               </div>
-              <div class="custom-control custom-radio custom-control-inline">
-              <input type="radio" class="custom-control-input" id="organisation" name="type" value="organisation" checked/>
-              <label class="custom-control-label" for="organisation" style={{color:'white'}}>Organisation</label>
+              <div className="custom-control custom-radio custom-control-inline">
+              <input type="radio" className="custom-control-input" id="organisation" name="type" value="organisation"/>
+              <label className="custom-control-label" htmlFor="organisation" style={{color:'white'}}>Organisation</label>
             </div>
                 <input
                   type="password"

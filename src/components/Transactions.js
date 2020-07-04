@@ -6,47 +6,24 @@ import {getTransactions,removeSuccess} from "../store/actions";
 import {connect} from "react-redux"; 
 import ErrorMessage from './ErrorMessage';
 import SuccessMessage from './SuccessMessage';
+import SideNavPage from '../container/SideNavPage';
 
 class Transactions extends Component {
     
     constructor(props){
         super(props);
         this.state = {
-            transactions: [  
-                {       
-                    id : "k55521d81p",
-                    product: "Iphone X",
-                    price: "Rs.20,000",
-                    date: "24-6-2020",
-                    ownerId: "p687hj22"
-                },
-                {
-                    id : "l55521d81p",
-                    product: "Iphone X",
-                    price: "Rs.20,000",
-                    date: "24-6-2020",
-                    ownerId: "p687hj22"
-                },
-                {
-                    id : "e55521d81p",
-                    product: "Iphone X",
-                    price: "Rs.20,000",
-                    date: "24-6-2020",
-                    ownerId: "p687hj22"
-                },
-                {
-                    id : "y55521d81p",
-                    product: "Iphone X",
-                    price: "Rs.20,000",
-                    date: "24-6-2020",
-                    ownerId: "p687hj22"
-                } 
-            ]
+            transactions: [
+               
+            ],
+            username:"",
         }
     }
     loadData(transaction) {
-        this.setState({transactions:transaction});
-       
+        this.setState({transactions:transaction.txids});
+        this.setState({username:transaction.username});
+
+    //    console.log(transaction)
        }
        componentWillUnmount() {
         const { removeSuccess } = this.props;
@@ -66,7 +43,7 @@ class Transactions extends Component {
         // wallet["orgName"]=orgName;
         // wallet["org_aff"]=orgAff;
 
-        getTransactions("?user_id="+usrid+"&orgName="+orgName).then(() => this.loadData(this.props.pastTransaction));
+        getTransactions("?user_id="+usrid+"&orgName="+orgName).then(() => this.loadData(this.props.transactions));
 
     }
     expandInline(e) {
@@ -79,83 +56,40 @@ class Transactions extends Component {
     }
     renderData(){
         if(this.state.transactions!==undefined){
-            const arr = this.state.transactions.map( (order, index) => {
-        
-                return <Array1 key={order.id}
-                         id={order.id}
-                         product={order.product}
-                         price={order.price}
-                         date={order.date}
-                         ownerid={order.ownerId}
-                    />
-            
-            } )
+          return this.state.transactions.map((product) => {
+             //destructuring
+            return (
+              <div
+                className="col-sm-12"
+                key={product}
+              >
+                <div className="card" style={{margin:'5px'}}>
+                  <div className="card-header" onClick={this.expandInline.bind(this)}>
+                   {product}
+                  </div>
+                </div>
+              </div>
+            );
+          });
         }else{
             return( 
                 <span>
                 <ErrorMessage />
                </span>);
         }
-        return this.state.transactions.map((transaction) => {
-            const {
-                id	,
-                product,
-                price,
-                date,
-                ownerId,
-            } = transaction; //destructuring
-            return (
-              <div
-                className="col-sm-6"
-                key={id}
-              >
-                <div className="card my-2">
-                  <div className="card-header"onClick={this.expandInline.bind(this)} >
-                   {id}
-                    <span className="float-right">
-                    <span className="mx-1">
-                    
-                    </span> 
-                    </span>
-                    <br />
-                    <small className="text-muted">Name: {product}</small>
-                  </div>
-                  <div className="card-body" style={{display:'none'}}>
-                  <b> Price : </b>{price}<br />
-                  <b> Date : </b>{date}<br />
-                  <b> Owner ID : </b>{ownerId}<br />
-                 
-                  </div>
-                </div>
-              </div>
-            );
-          });
     }
     render() {
-        // const arr = this.state.transactions.map( (order, index) => {
-	
-        //     return <Array1 key={order.id}
-        //              id={order.id}
-        //              product={order.product}
-        //              price={order.price}
-        //              date={order.date}
-        //              ownerid={order.ownerId}
-        //         />
-        
-        // } )
+       
         return (
 
-            <div>
-                <div className="row no-gutters">
-                <div className="col-sm-2 sidenav">
-                    <Sidenav activeComponent="5" />
-                </div>
-              
-                <div className="col-sm-10">
-                <h3 style={{color:'white', marginLeft:'45%', marginTop:'3%'}}>Previous Transactions :</h3>
-               
+            <div className="wrapper ">
+             <SideNavPage activeComponent="5" />  
+            <div className="container-fluid">
+                <h3 style={{color:'white', marginLeft:'40%', marginTop:'3%'}}>Previous Transactions :</h3>
+               <hr/>
                 <div className="main-footer" style={{ marginTop:'3%', height:'auto', width:'auto' }}>
                 <div className="container" style={{ height:'auto', width:'auto' }}>
+                <h3 style={{color:'white', marginLeft:'40%', marginTop:'3%'}}>Username :{this.state.username}</h3>
                 <div className="row">
                 {this.renderData()}
                     </div>
@@ -163,7 +97,6 @@ class Transactions extends Component {
                 </div>
                 </div>
                 </div>
-            </div>
         )
     }
 }

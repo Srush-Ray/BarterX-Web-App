@@ -7,6 +7,7 @@ MdDelete,
 MdFormatListBulleted,
 MdViewAgenda,
 } from "react-icons/md";
+import SideNavPage from "../container/SideNavPage";
 class ProductList extends Component {
   constructor(props) {
     super(props);
@@ -125,12 +126,12 @@ class ProductList extends Component {
   }
   render() {
     return (
-      <div>
-        <div className="row no-gutters">        
-          <div className="col-sm-2 sidenav">
+      <div className="wrapper ">
+      <SideNavPage activeComponent="2" />  
+     
+         { /*<div className="col-sm-2 sidenav">
             <Sidenav activeComponent="2" />
-          </div>
-          <div className="col-sm-10 of">
+    </div>*/}
             <div className="container-fluid">
               <h4 className="mt-2" style={{color:'#FFFFFF'}}>
                Product List
@@ -170,8 +171,7 @@ class ProductList extends Component {
               <div className="row">{this.renderCardData()}</div>
             </div>
           </div>
-        </div>
-      </div>
+       
     );
   }
 }
