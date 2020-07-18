@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import '../styles/loginRegister.css'
-import Navbar from "../container/NavBar";
 import image from '../components/images/bartar.png'; 
+import { Link } from "react-router-dom";
 export class Login extends Component {
   constructor(props) {
     super(props);
@@ -25,18 +25,16 @@ export class Login extends Component {
   }
   render() {
     return (
-      <div>
-      <Navbar />
-      <div >
+      <div className="box">      
       <div className="section">
       <div className="container">
-      <div className="user signinBx">
+      <div className="user">
       <div className="imgBx">
       <img src={image} alt="BaterX" />
       </div>
             <div className="formBx">
             <form onSubmit={this.handleSubmit}>
-            <h2>Login</h2>
+            <h2>LOGIN</h2>
                 <input
                 type="text"
                   name="username"
@@ -56,15 +54,20 @@ export class Login extends Component {
                   />
                   
 
-                  <input type="submit" value="Login" />
-                  
+                  <input type="submit" value="LOGIN" />
+                  <br/><Link to="/register" className="register" >
+                  Register
+                </Link>      
                   </form>
             </div>
+            
+            <div>
+            
+            </div>
             </div>
         </div>
         </div>
-    
-        </div>
+
         </div>
 );
 }

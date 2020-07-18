@@ -1,20 +1,19 @@
 import React, {Component} from 'react' 
-import Sidenav from "../container/SideNav";
-import Array1 from './Array1'
-
 import {getTransactions,removeSuccess} from "../store/actions";
 import {connect} from "react-redux"; 
 import ErrorMessage from './ErrorMessage';
 import SuccessMessage from './SuccessMessage';
 import SideNavPage from '../container/SideNavPage';
-
+import NavbarPage from '../container/NavbarPage';
+import Footer from '../container/Footer';
+import "../App.css";
 class Transactions extends Component {
     
     constructor(props){
         super(props);
         this.state = {
             transactions: [
-               
+               "drtfgvhjbnjhyugtfrguhbknvdxcj",
             ],
             username:"",
         }
@@ -30,20 +29,23 @@ class Transactions extends Component {
         removeSuccess();
       }
     componentDidMount() {   
+      if(localStorage.wallet!=null){
         const { getTransactions } = this.props;
-        let localStorageData=localStorage.wallet.split(",");
-        const usrid=localStorageData[0];
-        const orgName=localStorageData[1];
-        const orgAff=localStorageData[2]; 
-        const email=localStorageData[3];
-        // console.log(email);
-        // this.setState({emailID:email});
-        // let wallet={};
-        // wallet["usr_id"]=usrid;
-        // wallet["orgName"]=orgName;
-        // wallet["org_aff"]=orgAff;
 
-        getTransactions("?user_id="+usrid+"&orgName="+orgName).then(() => this.loadData(this.props.transactions));
+          let localStorageData=localStorage.wallet.split(",");
+          const usrid=localStorageData[0];
+          const orgName=localStorageData[1];
+          const orgAff=localStorageData[2]; 
+          const email=localStorageData[3];
+          console.log(usrid);
+          // this.setState({emailID:email});
+          // let wallet={};
+          // wallet["usr_id"]=usrid;
+          // wallet["orgName"]=orgName;
+          // wallet["org_aff"]=orgAff;
+          
+          getTransactions("?user_id="+usrid+"&orgName="+orgName).then(() => this.loadData(this.props.transactions));
+        }
 
     }
     expandInline(e) {
@@ -64,7 +66,7 @@ class Transactions extends Component {
                 key={product}
               >
                 <div className="card" style={{margin:'5px'}}>
-                  <div className="card-header" onClick={this.expandInline.bind(this)}>
+                  <div className="card-header">
                    {product}
                   </div>
                 </div>
@@ -82,21 +84,35 @@ class Transactions extends Component {
        
         return (
 
-            <div className="wrapper ">
-             <SideNavPage activeComponent="5" />  
-            <div className="container-fluid">
-                <h3 style={{color:'white', marginLeft:'40%', marginTop:'3%'}}>Previous Transactions :</h3>
-               <hr/>
-                <div className="main-footer" style={{ marginTop:'3%', height:'auto', width:'auto' }}>
-                <div className="container" style={{ height:'auto', width:'auto' }}>
-                <h3 style={{color:'white', marginLeft:'40%', marginTop:'3%'}}>Username :{this.state.username}</h3>
+          <div className="page-container">
+          <div className="content-wrap">
+          <NavbarPage />
+          <div className="container" style={{ height:'auto', width:'auto' }}>
+          <h3 >Username :{this.state.username}</h3>
                 <div className="row">
                 {this.renderData()}
                     </div>
-                </div>
-                </div>
-                </div>
-                </div>
+                    </div>
+          </div>
+          <div className="footer">
+          <Footer/>
+          </div>
+        </div>
+
+            // <div>
+            // <NavbarPage />
+            // <div className="container-fluid">
+            //     <div className="container" style={{ height:'auto', width:'auto' }}>
+            //     <h3 >Username :{this.state.username}</h3>
+            //     <div className="row">
+            //     {this.renderData()}
+            //         </div>
+            //     </div>
+            //     </div>
+            //     <div>
+            //     <Footer/>
+            //     </div>
+            //     </div>
         )
     }
 }

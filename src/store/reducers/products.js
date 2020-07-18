@@ -13,7 +13,7 @@ import {
     }
   };
 
-  export const productHistory = (state = {}, action) => {
+  export const productHistory = (state = [], action) => {
     switch (action.type) {
       case SET_PRODUCT_HISTORY:
         return action.product;
@@ -22,3 +22,12 @@ import {
     }
   };
   
+
+  export const products = (state = [], action) => {
+    switch (action.type) {
+      case SET_PRODUCTS:
+        return action.product;
+      default:
+        return state;
+    }
+  };

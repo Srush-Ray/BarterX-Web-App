@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Link } from "react-router-dom";
 import "../styles/SideNavPage.css";
 import Profile from "../components/Profile";
 import barter from '../components/images/bartar.png'; 
-
 import {
     MdAddCircle,
     MdPermIdentity,

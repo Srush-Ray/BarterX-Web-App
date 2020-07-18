@@ -1,57 +1,41 @@
 import React, { Component } from "react";
-import Sidenav from "../container/SideNav";
 import Array from './Array'
-import SideNavPage from "../container/SideNavPage";
+import Footer from "../container/Footer";
+import NavbarPage from "../container/NavbarPage";
+import { connect } from "react-redux";
+import   { getIndexed} from "../store/actions"
+
 class Search extends Component {
     constructor() {
         super();
         this.state = {
             search: '',
             products: [  
-                {       
-                productId	:"1",
-                name:	"Iphone X",
-                timestamp:	"24-06-2020",
-                category	:"Mobile",
-                status	:"Y",
-                ownerName	:"trial",
-                ownerId	:"123654",
-                productDescription:"poduct1"
-                },
-                {
-                productId	:"2",
-                name:	"Samsung A50",
-                timestamp:	"24-06-2020",
-                category	:"Mobile",
-                status	:"Y",
-                ownerName	:"trial",
-                ownerId	:"223654",
-                productDescription:"poduct2"
-                },
-                {
-                productId	:"3",
-                name:	"Redmi Note 9 Pro",
-                timestamp:	"24-06-2020",
-                category	:"Mobile",
-                status	:"Y",
-                ownerName	:"trial",
-                ownerId	:"323654",
-                productDescription:"poduct3"
-                },
-                {
-                productId	:"4",
-                name:	"DSLR",
-                timestamp:	"24-06-2020",
-                category	:"Camera",
-                status	:"Y",
-                ownerName	:"trial",
-                ownerId	:"323654",
-                productDescription:"poduct3"
-                } 
+                              
             ]
         };
     }
-
+    async componentDidMount() {
+        let localStorageData=localStorage.wallet.split(",");
+        const usrid=localStorageData[0];
+        const orgName=localStorageData[1];
+        const orgAff=localStorageData[2]; 
+        const email=localStorageData[3];
+    
+        const { getIndexed }=this.props
+        let data={};
+        data["start_index"]="0";
+        data["last_index"]="5";
+        getIndexed("?user_id="+usrid+"&orgName="+orgName,data)
+        .then(()=>{
+          this.loadData(this.props.products)
+        })
+       
+      }
+      loadData(productlist) {
+        this.setState({ products: productlist });
+        console.log(productlist);
+      }
     UpdateSearch(event) {
         this.setState({search: event.target.value.substr(0,10)});
     }
@@ -64,20 +48,25 @@ class Search extends Component {
         );
 
         const arr = filtered.map((product, index) => {
-            return <Array key={product.productId}
+            return <Array key={product.id}
             name= {product.name}
-            category = {product.category}
+            category = {product.resource_type_id}
+            price={product.Price}
+            owner={product.Owner}
+
             // status = {product.status}
             // productDescription = {product.productDescription} 
             />
         })
         return (
-            <div className="wrapper ">
-             <SideNavPage activeComponent="4" />  
-                <div className="container-fluid">
+
+            <div className="page-container">
+            <div className="content-wrap">
+            <NavbarPage />
+            <div className="container-fluid">
                 {/* <input type="text" value={this.state.search} onChange={this.UpdateSearch.bind(this)} /> */}
                 <input type="text" value={this.state.search} onChange={this.UpdateSearch.bind(this)} placeholder="Enter Product Name.." style={{width:'30%', height:'6%', borderRadius:'10px', marginLeft:'35%',marginRight:'35%', marginTop:'2%', padding:'1% 1%'}}/>             
-                <div className="main-footer" style={{ marginTop:'3%', height:'auto', width:'auto' }}>
+                <div className="" style={{ marginTop:'3%', height:'auto', width:'auto' }}>
                 <div className="container" style={{ height:'auto', width:'auto' }}>
                     <div className="row" style={{marginTop:'3%', height:'auto', width:'auto'}} >
                     {arr} 
@@ -85,9 +74,19 @@ class Search extends Component {
                 </div>
                 </div>
                 </div>
-                </div>
+            </div>
+            <div className="footer">
+            <Footer/>
+            </div>
+          </div>
+
         )
     }
 }
 
-export default Search;
+export default connect((store) => ({
+    products:store.products,
+    }),
+    { getIndexed}
+  )(Search);
+  

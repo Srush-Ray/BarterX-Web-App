@@ -5,6 +5,8 @@ import ErrorMessage from "../components/ErrorMessage";
 import SuccessMessage from "../components/SuccessMessage";
 import Sidenav from "../container/SideNav";
 import SideNavPage from "../container/SideNavPage";
+import NavbarPage from "../container/NavbarPage";
+import Footer from "../container/Footer";
 
 class AddProduct extends Component {
   constructor(props) {
@@ -15,7 +17,8 @@ class AddProduct extends Component {
         name: "",
         category: "",
         status:false,
-        owner:""
+        owner:"",
+        price:""
       },
     };
 
@@ -42,24 +45,22 @@ class AddProduct extends Component {
     data["category"] = formData.get("category") || this.state.data.category;
     data["status"] = formData.get("status") || this.state.data.status;
     data["owner"] = formData.get("owner") || this.state.data.owner;
-    storeProduct("?user_id="+usrid+"&orgName="+orgName,data);
+    data["price"] = formData.get("price") || this.state.data.price;
 
+    storeProduct("?user_id="+usrid+"&orgName="+orgName,data);
+    window.setTimeout(() => {
+      window.location.reload(false);      
+   }, 5000);  
   }
   render() {
     return (
       <div>
-      <div className="wrapper ">
-      <SideNavPage activeComponent="6" />  
-     
+      <div className="wrapper">
           <div className="container-fluid">
             <div className="container-fluid">
-              <h4 className="mt-2" style={{color:'white'}}><u>Add New Product</u></h4>
-              
-              <hr />
               {
-                <form id="form" onSubmit={this.handleSubmit} style={{color:'white'}}>
+                <form id="form" onSubmit={this.handleSubmit}>
                   Fill in the details:
-               
                   <hr />
                   <div className="container-fluid">
                     <div className="form-row my-2">
@@ -127,16 +128,26 @@ class AddProduct extends Component {
                           className="form-control"
                         />
                       </div>
-                      
+                      <div className="col-sm-6">
+                      Price:
+                      <input
+                        required
+                        type="text"
+                        name="price"
+                        id="price"
+                        placeholder="eg. John"
+                        className="form-control"
+                      />
+                    </div>
                     </div>
                    
                   </div>
                   <hr />
                   <div className="text-right">
-                    <button className="btn border-dark mx-2" type="reset">
+                    <button className="btn mx-2" style={{borderRadius:"20px", background: "#F58A41"}} type="reset">
                       Reset
                     </button>
-                    <button type="submit" className="btn btn-dark">
+                    <button type="submit"   style={{borderRadius:"20px", background: "#F58A41"}} className="btn">
                       Add Product
                     </button>
                   </div>
@@ -149,6 +160,7 @@ class AddProduct extends Component {
             </div>
           </div>
         </div>
+        <Footer />
       </div>
     );
   }

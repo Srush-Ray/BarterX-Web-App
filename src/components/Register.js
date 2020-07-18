@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import "../styles/loginRegister.css";
-import Navbar from "../container/NavBar";
 import image from '../components/images/bartar.png'; 
 import { MdError } from "react-icons/md";
 import {createWallet,removeSuccess,removeError } from "../store/actions";
@@ -85,15 +84,15 @@ export class Register extends Component {
     return (
      
       <div>
-      <Navbar />
-      <div >
+     
+     
      <div className="section">
       <span>
       <ErrorMessage />
       <SuccessMessage />
      </span>
       <div className="container">
-      <div className="user signinBx">
+      <div className="user" style={{borderRadius:"20%"}}>
       <div className="imgBx">
       <img src={image} alt="BaterX" />
       </div>
@@ -140,11 +139,11 @@ export class Register extends Component {
                
                 <div className="custom-control custom-radio custom-control-inline">
                 <input type="radio" className="custom-control-input" id="individual" name="type" value="individual" defaultChecked/>
-                <label className="custom-control-label" htmlFor="individual" style={{color:'white'}}>Individual</label>
+                <label className="custom-control-label" htmlFor="individual">Individual</label>
               </div>
               <div className="custom-control custom-radio custom-control-inline">
               <input type="radio" className="custom-control-input" id="organisation" name="type" value="organisation"/>
-              <label className="custom-control-label" htmlFor="organisation" style={{color:'white'}}>Organisation</label>
+              <label className="custom-control-label" htmlFor="organisation">Organisation</label>
             </div>
                 <input
                   type="password"
@@ -175,14 +174,14 @@ export class Register extends Component {
                   required
                   onChange={this.handleConfirmPassword}
                   />
-                  <input type="submit" value="Sign Up" />
+                  <input type="submit" value="SIGN UP" />
                   </form>
             </div>
             </div>
         </div>
         </div>
-    
-        </div>
+                    
+       
         </div>
               );
             }

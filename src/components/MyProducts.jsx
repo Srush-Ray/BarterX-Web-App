@@ -1,14 +1,13 @@
 import React, { Component } from "react";
-import Sidenav from "../container/SideNav";
-
-
 import {
 MdDelete,
 MdFormatListBulleted,
 MdViewAgenda,
 } from "react-icons/md";
-import SideNavPage from "../container/SideNavPage";
-class ProductList extends Component {
+import Footer from "../container/Footer";
+import   { removeSuccess,getIndexed,addSuccess ,removeError} from "../store/actions"
+import { connect } from "react-redux";
+class MyProductList extends Component {
   constructor(props) {
     super(props);
     //since we are extending class Table so we have to use super in order to override Component class constructor
@@ -16,46 +15,26 @@ class ProductList extends Component {
       //state is by default an object
       isLoading: true,
       products: [
-        {
-          productId	:"1",
-          name:	"xyz",
-          timestamp:	"24-06-2020",
-          category	:"abc",
-          status	:"Y",
-          ownerName	:"trial",
-          ownerId	:"123654",
-          productDescription:"poduct1"	
-          
-        },
-        {
-         
-          productId	:"2",
-          name:	"xyz",
-          timestamp:	"24-06-2020",
-          category	:"abc",
-          status	:"Y",
-          ownerName	:"trial",
-          ownerId	:"123654",
-          productDescription:"poduct1"
-          
-        },{
-           
-          productId	:"3",
-          name:	"xyz",
-          timestamp:	"24-06-2020",
-          category	:"abc",
-          status	:"Y",
-          ownerName	:"trial",
-          ownerId	:"123654",
-          productDescription:"poduct1"
-            
-          },
       ],
     };
    
   }
 
   async componentDidMount() {
+    let localStorageData=localStorage.wallet.split(",");
+    const usrid=localStorageData[0];
+    const orgName=localStorageData[1];
+    const orgAff=localStorageData[2]; 
+    const email=localStorageData[3];
+
+    const { getIndexed }=this.props
+    let data={};
+    data["start_index"]="0";
+    data["last_index"]="5";
+    getIndexed("?user_id="+usrid+"&orgName="+orgName,data)
+    .then(()=>{
+      this.loadData(this.props.products)
+    })
    
   }
   loadData(productlist) {
@@ -85,38 +64,34 @@ class ProductList extends Component {
   renderCardData() {
     return this.state.products.map((product) => {
       const {
-          productId	,
-          name,
-          timestamp,
-          category,
-          status	,
-          ownerName	,
-          ownerId	,
-          productDescription
+        id,
+        name,
+        resource_type_id,
+        Price,
+        Available,
+        Owner
       } = product; //destructuring
       return (
         <div
-          className="col-sm-6"
-          key={productId}
+          className="col-sm-4"
+          key={id}
         >
           <div className="card my-2">
             <div className="card-header" onClick={this.expandInline.bind(this)}>
-             {productId}
+             {id}
               <span className="float-right">
               <span className="mx-1">
               
               </span>
               </span>
               <br />
-              <small className="text-muted">Name: {name}</small>
+              <small className="text-capitalize">Name: {name}</small>
             </div>
             <div className="card-body">
-            <b> Timestamp : </b>{timestamp}<br />
-            <b> Category : </b>{category}<br />
-            <b> Status : </b>{status}<br />
-            <b> Owner Name : </b>{ownerName}<br />
-            <b> Owner ID : </b>{ownerId}<br />
-            <b> Description : </b>{productDescription}<br />
+            <b> Category : </b>{resource_type_id}<br />
+            <b> Status : </b>{Available}<br />
+            <b> Owner Name : </b>{Owner}<br />
+            <b> Price : </b>{Price}<br />
             
             </div>
           </div>
@@ -126,24 +101,20 @@ class ProductList extends Component {
   }
   render() {
     return (
-      <div className="wrapper ">
-      <SideNavPage activeComponent="2" />  
-     
-         { /*<div className="col-sm-2 sidenav">
-            <Sidenav activeComponent="2" />
-    </div>*/}
-            <div className="container-fluid">
-              <h4 className="mt-2" style={{color:'#FFFFFF'}}>
+        <div className="page-container">
+        <div className="content-wrap">
+        <div className="container-fluid">
+        <h4 className="mt-2">
                Product List
-                <div className="float-right">
+               <div className="float-right">
                   <div
                     className="btn-group btn-group-toggle btn-sm"
                     data-toggle="buttons"
                   >
-                    <label
+                  <label
                       className="btn btn-secondary btn-sm"
                       onClick={this.handleListView}
-                    >
+                      >
                       <input
                         type="radio"
                         name="options"
@@ -156,7 +127,7 @@ class ProductList extends Component {
                       className="btn btn-secondary active btn-sm"
                       onClick={this.handleCardView}
                     >
-                      <input
+                    <input
                         type="radio"
                         name="options"
                         id="option2"
@@ -166,14 +137,21 @@ class ProductList extends Component {
                     </label>
                   </div>
                 </div>
-              </h4>
+                </h4>
               <hr />
               <div className="row">{this.renderCardData()}</div>
             </div>
           </div>
-       
+          <div className="footer">
+          <Footer />
+          </div>
+          </div>
     );
-  }
+}
 }
 
-export default ProductList;
+export default connect((store) => ({
+  products:store.products,
+  }),
+  { removeSuccess,getIndexed,addSuccess ,removeError}
+)(MyProductList);

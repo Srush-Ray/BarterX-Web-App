@@ -1,21 +1,20 @@
 import React, { Component, useState } from "react";
 import { Card, CardTitle, Button, CardBody, CardText } from "reactstrap";
-import Sidenav from "../container/SideNav";
-import { readProduct,updateProduct,removeSuccess, removeError,getProductHistory } from "../store/actions";
+import { readProduct,updateProduct,removeSuccess, removeError } from "../store/actions";
 import { connect } from "react-redux";
 import ErrorMessage from "./ErrorMessage";
 import SuccessMessage from "./SuccessMessage";
 import SideNavPage from "../container/SideNavPage";
+import Footer from "../container/Footer";
 
-class ProductSettings extends Component {
+class UpdateDelete extends Component {
  
   constructor(props) {
     super(props);
     this.state = {
       isLoading: true,
       showMessage:false,
-      showMessageHistory:false,
-
+    
       emailID:"",
       pid:"",
       wallet:{
@@ -27,28 +26,13 @@ class ProductSettings extends Component {
           id:"",
           Available:"",
           name:"",
-          Owner:"",
+          AvailableOwner:"",
+          Price:"",
           resource_type_id:"",
-        },  
-        producthistory:[
-          {
-            TxId:"",
-            Value:{
-              id:"",
-              name:"",
-              resource_type_id:"",
-              Available:"",
-              Owner:"",
-            },
-            Timestamp:"",
-            IsDelete:"",
-          }
-
-        ]       
+        },      
     };  
     this.handleSubmitUpdate = this.handleSubmitUpdate.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleSubmitHistory= this.handleSubmitHistory.bind(this);
   }
   async componentDidMount() {
     let localStorageData=localStorage.wallet.split(",");
@@ -66,25 +50,8 @@ class ProductSettings extends Component {
     this.setState({wallet:wallet});
 
 }
-loadHisory(history){
-  console.log(history);
-  this.setState({producthistory:history});
-  this.setState({showMessage:true});
-  console.log(this.props);
-}
-handleSubmitHistory(event){
-  event.preventDefault();
-  var formData=new FormData(event.target);
-  // const id= formData.get("pidH") || null;
-  // console.log(id);
-  // const {getProductHistory}=this.props;
-  // let data={};
-  // data["productID"]= formData.get("pidH") || null;
-  // console.log(data);
-  // getProductHistory("?user_id="+this.state.wallet.usr_id+"&orgName="+this.state.wallet.orgName,data).then(
-  //   () => 
-  //   this.loadHisory(this.props.productHistory));
-}
+
+
   handleSubmitUpdate(event){
     event.preventDefault();
     const {updateProduct}=this.props;
@@ -92,22 +59,61 @@ handleSubmitHistory(event){
     var cancelButton = document.getElementById("cancelBtn");
     cancelButton.disabled=!cancelButton.disabled;
     var deleteBtn = document.getElementById("deleteBtn");
-    deleteBtn.disabled=!cancelButton.disabled;
-
-    
+    deleteBtn.disabled=!cancelButton.disabled;    
     var editButton = document.getElementById("editButton");
     editButton.classList.toggle("btn-danger");
     editButton.innerHTML = editButton.innerHTML === "Edit" ? "Cancel" : "Edit";
 
 
     let data={};
-
+    let body={};
     data["productID"]= this.state.pid || null;
     data["name"]= formData.get("name") || this.state.product.name;
-    data["category"]= formData.get("category") || this.state.product.category;
+    data["category"]= formData.get("category") || this.state.product.resource_type_id;
     data["status"]= formData.get("available") || this.state.product.Available;
-    data["owner"]= formData.get("owner") || this.state.product.Owner;
-    updateProduct("?user_id="+this.state.wallet.usr_id+"&orgName="+this.state.wallet.orgName,data);
+    data["ID"]= formData.get("ID") || this.state.product.id;
+    data["Available"]= formData.get("available") || this.state.product.Available;
+    data["Category"]= formData.get("category") || this.state.product.resource_type_id;
+    data["Owner"]= formData.get("owner") || this.state.product.Owner;
+    data["Price"]= formData.get("price") || this.state.product.Price;
+    if(data.ID!==this.state.product.id){
+        body["index"]="1";
+        body["value"]=data.ID;
+    }
+    else if(data.name!==this.state.product.name){
+      body["index"]="3";
+      body["value"]=data.name;
+  }else if(data.category!==this.state.product.resource_type_id){
+    body["index"]="2";
+    body["value"]=data.category;
+  }else if(data.Available!==this.state.product.Available){
+    body["index"]="4";
+    body["value"]=data.Available;
+  }else if(data.Owner!==this.state.product.Owner){
+    body["index"]="5";
+    body["value"]=data.Owner;
+  }else if(data.Price!==this.state.product.Price){
+    body["index"]="6";
+    body["value"]=data.Price;
+  }
+  body["productID"]= this.state.pid || null;
+    
+    updateProduct("?user_id="+this.state.wallet.usr_id+"&orgName="+this.state.wallet.orgName,body)
+    .then(()=>{
+      window.setTimeout(() => {
+        var form = document.getElementById("form1");
+        var elements = form.elements;
+        for (var i = 0, len = elements.length; i < len; ++i) {
+          elements[i].readOnly = !elements[i].readOnly;
+        }
+        const {removeError, removeSuccess } = this.props;
+        removeSuccess();
+        removeError();
+      }, 3000);  
+    });
+
+   
+
   }
   handleSubmit(event) {
     event.preventDefault();
@@ -132,33 +138,12 @@ handleSubmitHistory(event){
   }
 
   loadData(productD) {
+   console.log(productD);
     console.log(productD);
     let obj=JSON.parse(productD);
     console.log(obj);
     this.setState({product:obj});
-    this.setState({showMessageHistory:false});
-    // let product={}
-   
-//     let productDetails=productD.split(",");
-//     let available=productDetails[0].split(":")
-//     let Owner=productDetails[1].split(":")
-//     let id=productDetails[2].split(":")
-//     let name=productDetails[3].split(":")
-//     let resourceID=productDetails[4].split(":")
-//     console.log(productD);
-// //     var text = productD;
-// // var obj = JSON.parse(text);
-//     // let obj = JSON.parse(productD);
-//     // console.log(obj);
-//     // console.log(text);
-//     product["Available"]=available[1].substring(1,available[1].length-1)
-//     product["Owner"]=Owner[1].substring(1,Owner[1].length-1)
-//     product["id"]=id[1].substring(1,id[1].length-1)
-//     product["name"]=name[1].substring(1,name[1].length-1)
-//     product["resource_type_id"]=resourceID[1].substring(1,resourceID[1].length-2)
-//     this.setState({product:product})
     this.setState({showMessage:true})
-    console.log(this.state);
   }
 
   editform() {
@@ -184,14 +169,10 @@ handleSubmitHistory(event){
     return (
       <div>
       <div className="wrapper ">
-      <SideNavPage activeComponent="3" />  
       <div className="container-fluid">
-            <div className="container-fluid mt-2">
-              <h4  style={{color:'#FFFFFF'}}>Delete/Update/Get History of Product</h4>
-              <hr />
-
+            <div className="container-fluid">
               {
-                <div  style={{color:'#FFFFFF'}}>
+                <div >
                   Enter product Id to delete/update :
                   <form id="form" onSubmit={this.handleSubmit}>
                     <div className="form-row my-2">
@@ -217,30 +198,7 @@ handleSubmitHistory(event){
                     </div>
                   </form>
                   <hr />
-                 {/* <form id="form2" onSubmit={this.handleSubmitHistory}>
-                    <div className="form-row my-2">
-                      <div className="col-sm-6">
-                        <input
-                          required
-                          type="text"
-                          name="pidH"
-                          id="pidH"
-                          placeholder="Product Id of get History of product"
-                          className="form-control"
-                        />
-                      </div>
-                      <div className="col-sm-6">
-                        <button
-                          type="submit"
-                          className="btn btn-dark btn-sm mx-2"
-                          //   onClick={this._showMessage(true,this.state.username)}
-                        >
-                          Get History
-                        </button>
-                      </div>
-                    </div>
-                  </form>
-              <hr/>*/}
+               
                   <div>
                     {this.state.showMessage && (
                       <div>
@@ -254,13 +212,26 @@ handleSubmitHistory(event){
                       <CardBody>
                         <CardTitle className="card-header">
                           {/*<h4>{this.state.products.name}</h4>*/}
-                          <small  className="text-muted">
+                         
                             {this.state.product.id}
-                          </small>
                         </CardTitle>
                        
                         <table className="table-borderless table-hover table-sm" style={{color:'black',width:'auto'}}>
                           <tbody>
+                          <tr>
+                          <td>ID</td>
+                          <td>
+                              <input
+                              readOnly
+                              type="text"
+                              name="ID"
+                              id="ID"
+                              placeholder={this.state.product.id}
+                              className="form-control border-0"
+                              style={{background: '#ffffff'}}
+                            />
+                          </td>
+                        </tr>
                           <tr>
                           <td>Name</td>
                           <td>
@@ -318,6 +289,18 @@ handleSubmitHistory(event){
                               style={{background: '#ffffff'}}
                           /></td>
                             </tr>
+                            <tr>
+                            <td>Price</td>
+                           <td> <input
+                          readOnly
+                          type="text"
+                          name="price"
+                          id="price"
+                          placeholder={this.state.product.Price}
+                          className="form-control border-0"
+                            style={{background: '#ffffff'}}
+                        /></td>
+                          </tr>
                           </tbody>
                         </table>
                         <div className="text-right">
@@ -333,7 +316,7 @@ handleSubmitHistory(event){
                           Reset
                         </button>
                         <button type="submit" className="btn btn-primary" id="cancelBtn" disabled>
-                          Update Profile
+                          Update Product
                         </button>
                         <Button
                         className="btn btn-danger btn-sm mx-2"
@@ -355,79 +338,7 @@ handleSubmitHistory(event){
                     )}
                   </div>
                 </div>
-              }
-             
-             {  this.state.showMessageHistory &&(
-                <div>
-                <div>
-                <h4  style={{color:'#FFFFFF'}}>Product History</h4>
-                <hr />
-               
-                <Card>
-                <CardBody>
-                  <CardTitle className="card-header">
-                    {/*<h4>{this.state.products.name}</h4>*/}
-                    <small  className="text-muted">
-                      {this.state.producthistory.TxId}
-                    </small>
-                  </CardTitle>
-                 
-                  <table className="table-borderless table-hover table-sm" style={{color:'black',width:'auto'}}>
-                    <tbody>
-                    <tr>
-                    <td>ID</td>
-                    <td>
-                    {this.state.producthistory.Value.id}
-                    </td>
-                  </tr>
-
-                      <tr>
-                        <td>Name</td>
-                        <td>
-                        {this.state.producthistory.value.name}
-                        </td>
-                      </tr>
-
-                      <tr>
-                        <td>Category</td>
-                        <td>
-                        {this.state.producthistory.value.resource_type_id}
-                        </td>
-                      </tr>
-
-                      <tr>
-                        <td>Available</td>
-                       <td> {this.state.producthistory.value.Available}
-                       </td>
-                      </tr>
-
-                      <tr>
-                        <td>Owner</td>
-                       <td> {this.state.producthistory.value.Owner}
-                       </td>
-                      </tr>
-
-                      <tr>
-                        <td>TImestamp</td>
-                       <td> {this.state.producthistory.Timestamp}
-                       </td>
-                      </tr>
-
-                      <tr>
-                        <td>Deleted?</td>
-                       <td> {this.state.producthistory.IsDelete}
-                       </td>
-                      </tr>
-                    </tbody>
-                  </table>  
-                </CardBody>
-              </Card>             
-                </div>
-                </div>
-             ) 
-            
-             }
-             
+              }             
               <span>
                 <ErrorMessage />
                 <SuccessMessage />
@@ -435,6 +346,7 @@ handleSubmitHistory(event){
             </div>
           </div>
         </div>
+        <Footer />
       </div>
     );
   }
@@ -447,124 +359,4 @@ export default connect((store)=>({
   removeError,
   readProduct,
   updateProduct,
-  getProductHistory
-})(ProductSettings);
-// <form id="form" onSubmit={this.handleSubmit}>
-                       
-// <div className="container-fluid">
-  
-//   <div className="form-row my-2"  style={{color:'#FFFFFF'}}>
-//   <div className="col-sm-6">
-//   Name:
-//   <input
-//     readOnly
-//     type="text"
-//     name="name"
-//     id="name"
-//     placeholder={this.state.products.name}
-//     className="form-control"
-//   />
-// </div>  
-//   <div className="col-sm-6">
-//      Timestamp:
-//       <input
-//         readOnly
-//         type="text"
-//         name="timestamp"
-//         id="timestamp"
-//         placeholder={this.state.products.timestamp}
-//         className="form-control"
-//       />
-//     </div>      
-//   </div>
-
-//   <div className="form-row my-2"  style={{color:'#FFFFFF'}}>
-//   <div className="col-sm-6">
-//   Category:
-//   <input
-//     readOnly
-//     type="text"
-//     name="category"
-//     id="category"
-//     placeholder={this.state.products.category}
-//     className="form-control"
-//   />
-// </div>  
-//   <div className="col-sm-6">
-//      Status:
-//       <input
-//         readOnly
-//         type="text"
-//         name="status"
-//         id="status"
-//         placeholder={this.state.products.status}
-//         className="form-control"
-//       />
-//     </div>      
-//   </div>
-
-//   <div className="form-row my-2"  style={{color:'#FFFFFF'}}>
-//   <div className="col-sm-6">
-//   Owner ID:
-//   <input
-//     readOnly
-//     type="text"
-//     name="ownerid"
-//     id="ownerid"
-//     placeholder={this.state.products.ownerId}
-//     className="form-control"
-//   />
-// </div>  
-//   <div className="col-sm-6">
-//      Owner Name:
-//       <input
-//         readOnly
-//         type="text"
-//         name="ownername"
-//         id="ownername"
-//         placeholder={this.state.products.ownerName}
-//         className="form-control"
-//       />
-//     </div>      
-//   </div>
-//   <div className="form-row my-2"  style={{color:'#FFFFFF'}}>
-//   <div className="col-sm-">
-//   Product Description:
-//   <input
-//     readOnly
-//     type="text"
-//     name="productdescription"
-//     id="productdescription"
-//     placeholder={this.state.products.productDescription}
-//     className="form-control"
-//   />
-// </div>  
-//   </div>
-// </div>
-// <hr />
-// <div className="text-right">
-//   <button
-//     type="button"
-//     id="editButton"
-//     className="btn btn-secondary"
-//     onClick={this.editform}
-//   >
-//     Edit
-//   </button>
-//   <button className="btn btn-light mx-2" type="reset">
-//     Reset
-//   </button>
-//   <button type="submit" className="btn btn-primary" id="cancelBtn" disabled>
-//     Update Profile
-//   </button>
-//   <Button
-//   className="btn btn-danger btn-sm mx-2"
-//   id="deleteBtn"
-//   onClick={() =>
-//     this.handleClick(this.state.products._id)
-//   }
-// >
-//   Delete
-// </Button>
-// </div>
-// </form>
+})(UpdateDelete);

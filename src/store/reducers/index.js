@@ -1,7 +1,7 @@
 import { combineReducers } from "redux";
 import error from "./error";
 import {currentUser,walletPath,pastTransaction} from "./users";
-import {currentProduct,productHistory} from "./products";
+import {currentProduct,productHistory,products} from "./products";
 
 import success from "./success";
 export default combineReducers({
@@ -11,6 +11,7 @@ export default combineReducers({
     walletPath,
     pastTransaction,
     currentProduct,
-    productHistory
+    productHistory,
+    products
   });
   
