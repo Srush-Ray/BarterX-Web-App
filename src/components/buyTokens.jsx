@@ -41,6 +41,9 @@ export class BuyTokens extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
+    var formData = new FormData(e.target);   
+    
+
   }
   render() {
     return (

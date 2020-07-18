@@ -27,7 +27,7 @@ render() {
   return (
       <div>
     <Navbar bg="light" variant="light" sticky="top">
-    <a href="/home" className=" mt-2"><img src={logo} alt="logo" style={{width:'70px',height:'40px'}}/></a>
+    <a href="/home" className=" mt-2"><img src={logo} alt="logo" style={{width:'80px',height:'45px'}}/></a>
     <Nav className="ml-auto" style={{marginRight:"10px"}}>
    
     

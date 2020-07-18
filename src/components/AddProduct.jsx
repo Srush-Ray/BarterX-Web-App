@@ -48,9 +48,9 @@ class AddProduct extends Component {
     data["price"] = formData.get("price") || this.state.data.price;
 
     storeProduct("?user_id="+usrid+"&orgName="+orgName,data);
-    window.setTimeout(() => {
-      window.location.reload(false);      
-   }, 5000);  
+  //   window.setTimeout(() => {
+  //     window.location.reload(false);      
+  //  }, 5000);  
   }
   render() {
     return (
@@ -96,7 +96,7 @@ class AddProduct extends Component {
                           type="text"
                           name="category"
                           id="category"
-                          placeholder="eg. Mobile"
+                          placeholder="eg. Electronics"
                           className="form-control"
                         />
                       </div>

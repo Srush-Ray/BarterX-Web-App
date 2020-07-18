@@ -7,6 +7,7 @@ import { Tab,Tabs, TabList, TabPanel } from 'react-tabs';
 import ViewProfile from "./ViewProfile ";
 import EditProfile from "./EditProfile";
 import 'react-tabs/style/react-tabs.css';
+import Wallet from "./Wallet";
 
 class Profile extends Component {
   
@@ -22,12 +23,16 @@ class Profile extends Component {
       <TabList>
       <Tab>View Profile</Tab>  
       <Tab>Edit Profile</Tab>        
+      <Tab>Wallet</Tab>        
       </TabList>
       <TabPanel>
       <ViewProfile />      
       </TabPanel>
       <TabPanel>
       <EditProfile />      
+      </TabPanel>
+      <TabPanel>
+      <Wallet />      
       </TabPanel>
       </Tabs>
       <Footer />

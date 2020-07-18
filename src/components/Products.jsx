@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import {
     Card, CardImg, CardText, CardBody, CardLink,
-    CardTitle, CardSubtitle
+    CardTitle, CardSubtitle, Modal, Button
   } from 'reactstrap';
 import phone from "../components/images/phone.jpg";
 import Footer from "../container/Footer";
@@ -13,13 +13,16 @@ class Products extends Component {
     //since we are extending class Table so we have to use super in order to override Component class constructor
     this.state = {
       //state is by default an object
-      isLoading: true,
+      isLoading: false,
       products: [
       ],
     };
-   
+    this.handleClose=this.handleClose.bind(this);
+   this.handleModel=this.handleModel.bind(this);
   }
-
+  handleModel(event){
+    this.setState({isLoading:true});
+  }
   async componentDidMount() {
     let localStorageData=localStorage.wallet.split(",");
     const usrid=localStorageData[0];
@@ -37,11 +40,15 @@ class Products extends Component {
     })
    
   }
+  handleClose(event){
+    this.setState({isLoading:false});
+  }
   loadData(productlist) {
     this.setState({ products: productlist });
     console.log(productlist);
   }
   renderCardData() {
+    console.log(this.state)
     return this.state.products.map((product) => {
       const {
           id,
@@ -63,7 +70,12 @@ class Products extends Component {
                <CardImg src={phone} alt="" style={{height:"180px",padding:"20px"}} />
                 <CardBody>
                   <CardText style={{color:"black"}}><b>Price : </b>{Price}</CardText>
-                  <button  className="btn btn-primary mx-2">BUY</button>
+                  <button  className="btn btn-primary mx-2" 
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    this.setState({isLoading: true});
+                  }}
+                  >BUY</button>
                   <button  className="btn btn-primary mx-2"><a href="/barter">Barter</a></button>
                 </CardBody>
               </Card>
@@ -77,6 +89,15 @@ class Products extends Component {
       <div>
       <div className="container-fluid">
       <div className="row">{this.renderCardData()}</div>
+      <Modal show={this.state.isLoading} onHide={this.handleClose}>
+     xdrcfghjbk m
+        <Button variant="secondary" onClick={this.handleClose}>
+          Close
+        </Button>
+        <Button variant="primary" onClick={this.handleClose}>
+          Save Changes
+        </Button>
+    </Modal>
             </div>
             <Footer/>
           </div>

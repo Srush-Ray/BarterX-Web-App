@@ -14,14 +14,7 @@ class CategorySearch extends Component {
         this.state = {
           isLoading: true,
       products: [
-        {
-          id	:"1",
-          name:	"xyz",
-          resource_type_id:	"24-06-2020",
-          Available	:"abc",
-          Owner	:"Y",
-          Price	:"123654",
-          }          
+            
       ],
         };
         this.renderCardData=this.renderCardData.bind(this);

@@ -12,12 +12,44 @@ class Transactions extends Component {
     constructor(props){
         super(props);
         this.state = {
-            transactions: [
-               "drtfgvhjbnjhyugtfrguhbknvdxcj",
-            ],
             username:"",
+            transactions: [
+              
+            ],
+            wallet:{
+              orgName:"Department1",
+              org_aff:"org1",
+              usr_id:"srush",
+            } 
         }
     }
+    async componentDidMount() {
+      if(localStorage.wallet!=null){
+  
+        let localStorageData=localStorage.wallet.split(",");
+        const usrid=localStorageData[0];
+        const orgName=localStorageData[1];
+        const orgAff=localStorageData[2]; 
+        const email=localStorageData[3];
+        // console.log(email);
+        let wallet={};
+        wallet["usr_id"]=usrid;
+        wallet["orgName"]=orgName;
+        wallet["org_aff"]=orgAff;
+        this.setState({wallet:wallet});
+        const { getTransactions } = this.props;
+        this.setState({username:usrid});
+        // this.setState({emailID:email});
+        // let wallet={};
+        // wallet["usr_id"]=usrid;
+        // wallet["orgName"]=orgName;
+        // wallet["org_aff"]=orgAff;
+        
+        getTransactions("?user_id="+usrid+"&orgName="+orgName).then(() => this.loadData(this.props.transactions));
+      
+      }
+  
+  }
     loadData(transaction) {
         this.setState({transactions:transaction.txids});
         this.setState({username:transaction.username});
@@ -28,26 +60,7 @@ class Transactions extends Component {
         const { removeSuccess } = this.props;
         removeSuccess();
       }
-    componentDidMount() {   
-      if(localStorage.wallet!=null){
-        const { getTransactions } = this.props;
 
-          let localStorageData=localStorage.wallet.split(",");
-          const usrid=localStorageData[0];
-          const orgName=localStorageData[1];
-          const orgAff=localStorageData[2]; 
-          const email=localStorageData[3];
-          console.log(usrid);
-          // this.setState({emailID:email});
-          // let wallet={};
-          // wallet["usr_id"]=usrid;
-          // wallet["orgName"]=orgName;
-          // wallet["org_aff"]=orgAff;
-          
-          getTransactions("?user_id="+usrid+"&orgName="+orgName).then(() => this.loadData(this.props.transactions));
-        }
-
-    }
     expandInline(e) {
         if( e.target.parentElement.lastChild.style.display === "block"){
           e.target.parentElement.lastChild.style.display = "none";
@@ -80,15 +93,14 @@ class Transactions extends Component {
                </span>);
         }
     }
-    render() {
-       
+    render() {  
+      console.log(this.state)     
         return (
-
           <div className="page-container">
           <div className="content-wrap">
           <NavbarPage />
           <div className="container" style={{ height:'auto', width:'auto' }}>
-          <h3 >Username :{this.state.username}</h3>
+          <h3 style={{color:"black"}}>Username : {this.state.wallet.usr_id}</h3>
                 <div className="row">
                 {this.renderData()}
                     </div>
