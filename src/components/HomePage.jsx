@@ -26,8 +26,9 @@ class HomePage extends Component {
       <div>
       <NavbarPage/>
         <div>
-        <div class="jumbotron jumbotron-fluid">
-            <div class="container">
+        <div className="jumbotron jumbotron-fluid">
+            <div className="container">
+                
             </div>
         </div>
         <div>

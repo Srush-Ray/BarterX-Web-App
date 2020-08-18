@@ -66,7 +66,7 @@ class Wallet extends Component {
             <div className="container-fluid mt-2">
             <div className="row">
             <div className="col-2">
-            <img src={profile} alt="ProfileImage"  style={{height:"200px",width:"200px"}} />
+            <img src={profile} alt="ProfileImage"  style={{height:"200px",width:"200px",borderRadius:"50%"}} />
             </div>
             <div className="col-5" style={{}}>
             <label>

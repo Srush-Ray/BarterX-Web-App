@@ -4,6 +4,8 @@ import Sidenav from "../container/SideNav";
 import { connect } from "react-redux";
 import profile from "../components/images/download.jpeg";
 import "../styles/profile.css";
+import { toast, ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 class ViewProfile extends Component {
   
   constructor(props) {
@@ -21,8 +23,7 @@ class ViewProfile extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   async componentDidMount() {
-    if(localStorage.wallet!=null){
-
+    if(localStorage.wallet!==undefined){
       let localStorageData=localStorage.wallet.split(",");
       const usrid=localStorageData[0];
       const orgName=localStorageData[1];
@@ -35,8 +36,9 @@ class ViewProfile extends Component {
       wallet["orgName"]=orgName;
       wallet["org_aff"]=orgAff;
       this.setState({wallet:wallet});
+    }else{
+      toast("Login first", {position: toast.POSITION.TOP_CENTER, autoClose: 1000});
     }
-
 }
   loadData(user) {
     this.setState({ data: user });
@@ -65,7 +67,7 @@ class ViewProfile extends Component {
             <div className="container-fluid mt-2">
             <div className="row">
             <div className="col-2">
-            <img src={profile} alt="ProfileImage"  style={{height:"200px",width:"200px"}} />
+            <img src={profile} alt="ProfileImage"  style={{height:"200px",width:"200px",borderRadius:"50%"}} />
             </div>
             <div className="col-5" style={{}}>
             <label>
@@ -86,8 +88,8 @@ class ViewProfile extends Component {
               <input
               readOnly
               type="text"
-              name="username"
-              id="username"
+              name="orgName"
+              id="orgName"
               placeholder={this.state.wallet.org_aff}
               style={{backgroundColor:"white"}}
                 className="form-control input"
@@ -98,8 +100,8 @@ class ViewProfile extends Component {
                 <input
                 readOnly
                 type="text"
-                name="username"
-                id="username"
+                name="org_Aff"
+                id="org_Aff"
                 placeholder={this.state.wallet.orgName}
                 className="form-control input"
                 style={{backgroundColor:"white"}}
@@ -110,13 +112,13 @@ class ViewProfile extends Component {
                 <input
                 readOnly
                 type="text"
-                name="username"
-                id="username"
+                name="email"
+                id="email"
                 placeholder={this.state.emailID}
                 className="form-control input"
                 style={{backgroundColor:"white"}}
                 />
-
+<ToastContainer/>
                 </div>  
                 </div>
                 </div>

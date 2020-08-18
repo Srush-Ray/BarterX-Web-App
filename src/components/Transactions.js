@@ -7,6 +7,7 @@ import SideNavPage from '../container/SideNavPage';
 import NavbarPage from '../container/NavbarPage';
 import Footer from '../container/Footer';
 import "../App.css";
+import { toast, ToastContainer } from 'react-toastify';
 class Transactions extends Component {
     
     constructor(props){
@@ -24,8 +25,7 @@ class Transactions extends Component {
         }
     }
     async componentDidMount() {
-      if(localStorage.wallet!=null){
-  
+      if(localStorage.wallet!==undefined){  
         let localStorageData=localStorage.wallet.split(",");
         const usrid=localStorageData[0];
         const orgName=localStorageData[1];
@@ -47,10 +47,14 @@ class Transactions extends Component {
         
         getTransactions("?user_id="+usrid+"&orgName="+orgName).then(() => this.loadData(this.props.transactions));
       
+      }else{
+      toast("Login first", {position: toast.POSITION.TOP_CENTER, autoClose: 1000});
+        
       }
   
   }
     loadData(transaction) {
+      console.log(transaction.username)
         this.setState({transactions:transaction.txids});
         this.setState({username:transaction.username});
 
@@ -75,7 +79,7 @@ class Transactions extends Component {
              //destructuring
             return (
               <div
-                className="col-sm-12"
+                className="col-sm-6"
                 key={product}
               >
                 <div className="card" style={{margin:'5px'}}>
@@ -100,7 +104,7 @@ class Transactions extends Component {
           <div className="content-wrap">
           <NavbarPage />
           <div className="container" style={{ height:'auto', width:'auto' }}>
-          <h3 style={{color:"black"}}>Username : {this.state.wallet.usr_id}</h3>
+          <h3 style={{color:"black"}}>Username : {this.state.username}</h3>
                 <div className="row">
                 {this.renderData()}
                     </div>
@@ -109,6 +113,7 @@ class Transactions extends Component {
           <div className="footer">
           <Footer/>
           </div>
+          <ToastContainer/>
         </div>
 
             // <div>

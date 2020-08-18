@@ -35,9 +35,11 @@ class UpdateDelete extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   async componentDidMount() {
-    let localStorageData=localStorage.wallet.split(",");
-    const usrid=localStorageData[0];
-    const orgName=localStorageData[1];
+    if(localStorage.wallet!=undefined){
+
+      let localStorageData=localStorage.wallet.split(",");
+      const usrid=localStorageData[0];
+      const orgName=localStorageData[1];
     const orgAff=localStorageData[2]; 
     const email=localStorageData[3];
     // console.log(email);
@@ -46,9 +48,12 @@ class UpdateDelete extends Component {
     wallet["usr_id"]=usrid;
     wallet["orgName"]=orgName;
     wallet["org_aff"]=orgAff;
-
+    
     this.setState({wallet:wallet});
-
+  }else{
+    
+  }
+    
 }
 
 

@@ -11,14 +11,23 @@ class Search extends Component {
         this.state = {
             search: '',
             products: [  
-                              
+                {
+                    id:"741258",
+                    name:"Samsung Phone",
+                    resource_type_id:"Electronics",
+                    Price:"15000",
+                    Owner:"Srushti"
+                }
+                           
             ]
         };
     }
     async componentDidMount() {
-        let localStorageData=localStorage.wallet.split(",");
-        const usrid=localStorageData[0];
-        const orgName=localStorageData[1];
+     if(localStorage.wallet!==undefined){
+
+         let localStorageData=localStorage.wallet.split(",");
+         const usrid=localStorageData[0];
+         const orgName=localStorageData[1];
         const orgAff=localStorageData[2]; 
         const email=localStorageData[3];
     
@@ -28,11 +37,14 @@ class Search extends Component {
         data["last_index"]="5";
         getIndexed("?user_id="+usrid+"&orgName="+orgName,data)
         .then(()=>{
-          this.loadData(this.props.products)
+            this.loadData(this.props.products)
         })
-       
-      }
-      loadData(productlist) {
+        
+    }else{
+        // alert("Login first");
+    }
+}
+    loadData(productlist) {
         this.setState({ products: productlist });
         console.log(productlist);
       }
@@ -66,9 +78,9 @@ class Search extends Component {
             <div className="container-fluid">
                 {/* <input type="text" value={this.state.search} onChange={this.UpdateSearch.bind(this)} /> */}
                 <input type="text" value={this.state.search} onChange={this.UpdateSearch.bind(this)} placeholder="Enter Product Name.." style={{width:'30%', height:'6%', borderRadius:'10px', marginLeft:'35%',marginRight:'35%', marginTop:'2%', padding:'1% 1%'}}/>             
-                <div className="" style={{ marginTop:'3%', height:'auto', width:'auto' }}>
+                <div className="" style={{ marginTop:'1%', height:'auto', width:'auto' }}>
                 <div className="container" style={{ height:'auto', width:'auto' }}>
-                    <div className="row" style={{marginTop:'3%', height:'auto', width:'auto'}} >
+                    <div className="row" style={{marginTop:'1%', height:'auto', width:'auto'}} >
                     {arr} 
                     </div>
                 </div>

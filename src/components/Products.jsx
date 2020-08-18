@@ -7,6 +7,9 @@ import phone from "../components/images/phone.jpg";
 import Footer from "../container/Footer";
 import   { removeSuccess,getIndexed,addSuccess ,removeError} from "../store/actions"
 import { connect } from "react-redux";
+import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+
 class Products extends Component {
   constructor(props) {
     super(props);
@@ -15,6 +18,13 @@ class Products extends Component {
       //state is by default an object
       isLoading: false,
       products: [
+        {
+          id:"741258",
+          name:"Samsung Phone",
+          resource_type_id:"Electronics",
+          Price:"15000"
+        }
+      
       ],
     };
     this.handleClose=this.handleClose.bind(this);
@@ -24,12 +34,12 @@ class Products extends Component {
     this.setState({isLoading:true});
   }
   async componentDidMount() {
-    let localStorageData=localStorage.wallet.split(",");
-    const usrid=localStorageData[0];
-    const orgName=localStorageData[1];
-    const orgAff=localStorageData[2]; 
-    const email=localStorageData[3];
-
+    if(localStorage.wallet!==undefined){
+      let localStorageData=localStorage.wallet.split(",");
+      const usrid=localStorageData[0];
+      const orgName=localStorageData[1];
+      const orgAff=localStorageData[2]; 
+      const email=localStorageData[3];
     const { getIndexed }=this.props
     let data={};
     data["start_index"]="0";
@@ -38,7 +48,9 @@ class Products extends Component {
     .then(()=>{
       this.loadData(this.props.products)
     })
-   
+  }else{
+    toast("Login first", {position: toast.POSITION.TOP_CENTER, autoClose: 1000});
+  }  
   }
   handleClose(event){
     this.setState({isLoading:false});
@@ -59,23 +71,23 @@ class Products extends Component {
       return (
 
         <div
-          className="item col-md-2 col-sm-4 hover"
+          className="item col-md-2 col-sm-4 "
           key={id}
         >
-          <Card style={{marginTop:"10%"}}>
+        
+          <Card className="hover"style={{marginTop:"10%"}}>
                 <CardBody>
                   <CardTitle><b>Product Name : </b>{name}</CardTitle>
                   <CardSubtitle><b>category : </b>{resource_type_id}</CardSubtitle>
                 </CardBody>
-               <CardImg src={phone} alt="" style={{height:"180px",padding:"20px"}} />
+               <CardImg src={phone} alt="" style={{height:"200px",padding:"5px"}} />
                 <CardBody>
                   <CardText style={{color:"black"}}><b>Price : </b>{Price}</CardText>
                   <button  className="btn btn-primary mx-2" 
                   onClick={(event) => {
                     event.stopPropagation();
                     this.setState({isLoading: true});
-                  }}
-                  >BUY</button>
+                  }}>BUY</button>
                   <button  className="btn btn-primary mx-2"><a href="/barter">Barter</a></button>
                 </CardBody>
               </Card>

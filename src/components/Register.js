@@ -32,7 +32,7 @@ export class Register extends Component {
   }
   loadData(path) {
    this.setState({walletPath:path});
-   if(localStorage.wallet!==""){
+   if(localStorage.wallet!==undefined){
     window.setTimeout(() => {
       this.props.history.push("/home");
       // history is available by design in this.props when using react-router

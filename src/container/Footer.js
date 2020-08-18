@@ -63,18 +63,18 @@ function Footer() {
         // </div>
         <MDBFooter className="font-small pt-4 mt-4 main-footer">
         <MDBContainer fluid className="text-center text-md-left">
-          <MDBRow>
-          <MDBCol md="3" sm="6">
-             <img src={logo} className="logo" alt="BarterX"/>
-            </MDBCol>
+          <MDBRow >
+          <MDBCol  style={{backgroundColor:"white"}} md="3" sm="6">
+          <img src={logo} className="logo hover" alt="BarterX" style={{marginTop:"5%",marginLeft:"5%"}}/>
+    </MDBCol>
             <MDBCol md="3" sm="6">
             <ul className="list-unstyled">
-            <li><Link >Home</Link></li>
-            <li><Link >Log in</Link></li>
+            <li><Link to="/home" >Home</Link></li>
+            <li><Link to="/">Log in</Link></li>
             </ul>
             </MDBCol>
             <MDBCol md="3" sm="6">
-              <h5 className="title">All Categories</h5>
+              <h5 className="title" style={{color:"white"}}>All Categories</h5>
               <ul>
                 <li className="list-unstyled">
                   <a href="/category?Vehicles">Vehicles</a>
@@ -91,7 +91,7 @@ function Footer() {
               </ul>
             </MDBCol>
             <MDBCol className="text-right" md="3" sm="6">
-            <h5 className="title">Contact</h5>
+            <h5 className="title" style={{color:"white"}}>Contact</h5>
             <ul>
               <li className="list-unstyled">
                 <a href="#!">customer.care@Barterx.co.in</a>
@@ -105,7 +105,7 @@ function Footer() {
           
         </MDBContainer>
         <div className="footer-copyright text-right py-3">
-          <MDBContainer fluid>
+          <MDBContainer fluid style={{color:"white"}}>
             &copy; {new Date().getFullYear()}<a href="https://www.mdbootstrap.com"> All rights reserved </a>
           </MDBContainer>
         </div>

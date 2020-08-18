@@ -31,6 +31,7 @@ export const setPastTransaction=(transactions)=>({
           let token=data.usr_id+","+data.orgName+","+data.org_aff+","+data.email;
           localStorage.setItem("wallet",token);
           // apis.setToken(token);
+          console.log(successMessage);
           dispatch(addSuccess(successMessage));
           dispatch(removeError());
       } catch (err) {
@@ -57,3 +58,10 @@ export const setPastTransaction=(transactions)=>({
   };
 
   
+  export const logout_f = () => {
+    return (dispatch) => {
+      localStorage.clear();
+      api.setToken(null);
+      dispatch(removeError());
+    };
+  };

@@ -20,7 +20,7 @@ class Profile extends Component {
       <div>
       <NavbarPage /> 
       <Tabs>
-      <TabList>
+      <TabList style={{fontStyle:"bold"}}>
       <Tab>View Profile</Tab>  
       <Tab>Edit Profile</Tab>        
       <Tab>Wallet</Tab>        

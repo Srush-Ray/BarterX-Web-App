@@ -12,8 +12,9 @@ state = {
   isOpen: false
 };
   handleLogout() {
-    // const { logout } = this.props;
-    // logout();
+      const { logout } = this.props;
+      logout();
+      window.location.href = "/";
   }
   constructor(props) {
     super(props);
@@ -39,8 +40,8 @@ render() {
         <NavDropdown.Item href="/buytokens"><MdAttachMoney size={20} style={{color:"#A84DA1"}}/> Buy Tokens</NavDropdown.Item>
         <NavDropdown.Item href=""><MdSettings size={20} style={{color:"#A84DA1"}}/> Setting</NavDropdown.Item>
         <NavDropdown.Divider />
-        <NavDropdown.Item href="#action/3.4"><RiLogoutBoxLine size={20} style={{color:"#A84DA1"}}/>
-        <a onClick={this.handleLogout} href="/">Logout</a>        
+        <NavDropdown.Item onClick={this.handleLogout}><RiLogoutBoxLine size={20} style={{color:"#A84DA1"}}/>
+        Logout        
         </NavDropdown.Item>
       </NavDropdown>
 

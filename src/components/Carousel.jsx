@@ -18,34 +18,34 @@ class Carousel extends React.Component {
          <div>
       
               <div>
-                <img src={phone} alt="" style={{width:'70%', height:'50%'}}/>
+                <img src={phone} alt="" style={{width:'40px%', height:'200px'}}/>
               </div>
-              <p>Iphone</p>
+              <p style={{color:"black"}}>Iphone</p>
             </div>,
             <div>
             <div>
-              <img src={phone} alt=""  style={{width:'70%', height:'50%'}}/>
+              <img src={phone} alt="" style={{width:'40px%', height:'200px'}}/>
             </div>
-            <p>One Plus</p>
+            <p style={{color:"black"}}>One Plus</p>
             </div>,
             <div>
             <div>
-              <img src={phone} alt=""  style={{width:'70%', height:'50%'}}/>
+              <img src={phone} alt=""  style={{width:'40px%', height:'200px'}}/>
             </div>
-            <p>Car</p>
+            <p style={{color:"black"}}>Car</p>
             </div>,
             <div>
             <div>
-              <img src={phone} alt=""  style={{width:'70%', height:'50%'}}/>
+              <img src={phone} alt="" style={{width:'40px%', height:'200px'}}/>
             </div>
-            <p>RealMe</p>
+            <p style={{color:"black"}}>RealMe</p>
             </div>,
 
             <div>
             <div>
-              <img src={phone} alt=""  style={{width:'70%', height:'50%'}}/>
+              <img src={phone} alt="" style={{width:'40px%', height:'200px'}}/>
             </div>
-            <p>Note 5</p>
+            <p style={{color:"black"}}>Note 5</p>
             </div>
      ]
  
@@ -70,9 +70,9 @@ class Carousel extends React.Component {
   render() {
     const { galleryItems, responsive, currentIndex } = this.state
     return (
-      <div style={{margin:'50px'}}>
-      <div ><h4>Featured Products</h4></div>
-      <div style={{padding:'5%',marginTop:'1%',backgroundColor:"#CCCCCC"}}>
+      <div >
+      <div><h4><b>Featured Products</b></h4></div>
+      <div style={{padding:'1%',marginTop:'1%',backgroundColor:"#F7812C"}}>
         <AliceCarousel
           dotsDisabled={true}
           buttonsDisabled={true}

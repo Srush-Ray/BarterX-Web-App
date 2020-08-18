@@ -15,6 +15,7 @@ import ProductSetting from "./components/ProductSetting";
 import CategorySearch from "./components/CategorySearch";
 import Barter from "./components/Barter";
 import { BuyTokens } from "./components/buyTokens";
+import NotFoundPage from "./components/NotFound";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
         <Route path="/category" component={CategorySearch } /> 
         <Route path="/barter" component={Barter } /> 
         <Route path="/buytokens" component={BuyTokens } /> 
+        <Route component={NotFoundPage} /> 
 
       </Switch>
     </Router>

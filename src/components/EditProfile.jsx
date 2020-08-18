@@ -4,6 +4,7 @@ import Sidenav from "../container/SideNav";
 import { connect } from "react-redux";
 import profile from "../components/images/download.jpeg";
 import "../styles/profile.css";
+import { ToastContainer, toast } from "react-toastify";
 class EditProfile extends Component {
   
   constructor(props) {
@@ -21,7 +22,7 @@ class EditProfile extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   async componentDidMount() {
-    if(localStorage.wallet!=null){
+    if(localStorage.wallet!==undefined){
 
       let localStorageData=localStorage.wallet.split(",");
       const usrid=localStorageData[0];
@@ -35,6 +36,9 @@ class EditProfile extends Component {
       wallet["orgName"]=orgName;
       wallet["org_aff"]=orgAff;
       this.setState({wallet:wallet});
+    }else{
+      toast("Login first", {position: toast.POSITION.TOP_CENTER, autoClose: 1000});
+
     }
 
 }
@@ -65,7 +69,7 @@ class EditProfile extends Component {
             <div className="container-fluid mt-2">
             <div className="row">
             <div className="col-2">
-            <img src={profile} alt="ProfileImage" style={{height:"200px",width:"200px"}} />
+            <img src={profile} alt="ProfileImage" style={{height:"200px",width:"200px",borderRadius:"50%"}} />
             </div>
             <div className="col-5" style={{}}>
             <form id="form" onSubmit={this.handleSubmit}>
@@ -85,8 +89,8 @@ class EditProfile extends Component {
             </label>
               <input
               type="text"
-              name="username"
-              id="username"
+              name="orgName"
+              id="orgName"
               placeholder={this.state.wallet.org_aff}
               style={{backgroundColor:"white"}}
               className="form-control input"
@@ -96,8 +100,8 @@ class EditProfile extends Component {
             </label>
                 <input
                 type="text"
-                name="username"
-                id="username"
+                name="org_Aff"
+                id="org_Aff"
                 placeholder={this.state.wallet.orgName}
                 className="form-control input"
                 style={{backgroundColor:"white"}}
@@ -107,8 +111,8 @@ class EditProfile extends Component {
             </label>
             <input
                 type="text"
-                name="username"
-                id="username"
+                name="email"
+                id="email"
                 placeholder={this.state.emailID}
                 className="form-control input"
                 style={{backgroundColor:"white"}}
@@ -119,7 +123,7 @@ class EditProfile extends Component {
                 id="editButton"
                 className="btn btn-secondary"
                 value="Save"
-                style={{backgroundColor:"orange",border:"none",borderRadius:"20px",width:"100px"}}
+                style={{backgroundColor:"orange",border:"none",borderRadius:"20px",width:"100px",color:"black"}}
                 />
                 
               <input
@@ -127,13 +131,15 @@ class EditProfile extends Component {
               id="reset"
               value="Discard"
               className="btn btn-secondary"
-              style={{backgroundColor:"orange",border:"none",borderRadius:"20px",width:"100px",marginLeft:"70px"}}
+              style={{backgroundColor:"orange",border:"none",borderRadius:"20px",width:"100px",marginLeft:"70px",color:"black"}}
               />
           
                 </div>
                 </form>
                 </div>  
                 </div>
+<ToastContainer/>
+
                 </div>
                 );
             }
