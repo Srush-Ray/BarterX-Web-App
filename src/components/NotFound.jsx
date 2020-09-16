@@ -8,6 +8,9 @@ class NotFoundPage extends Component {
   render() {
     return (
       <div className="container-fluid">
+        <a href="/home">
+          <p style={{ color: "black" }}>HOME</p>
+        </a>
         <div className="mt-5 text-center bg-secondary text-white">
           <h1 className="display-3 my-5">404, Not Found</h1>
           <hr />
@@ -24,7 +27,6 @@ class NotFoundPage extends Component {
             Click here to go back
           </button>
         </div>
-        <p>BarterX</p>
       </div>
     );
   }

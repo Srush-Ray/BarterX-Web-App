@@ -1,186 +1,165 @@
-
-  /* body {
+/* body {
     background-image: url(../components/images/loginblur.jpg);
   } */
-  /* .heading {
+/* .heading {
     width: 100%;
     text-align: center;
     color: #C45BBD;
     text-decoration: underline;
   } */
 
-  .section{
-    text-align: center;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-  }
-  .section .container
-  {
-	margin: auto;
-    position: relative;
-    width:800px;
-    height: 500px;
-    color: #333;
-    /* background-color: #424242; */
-    box-shadow: 10px 10px 10px rgb(108, 108, 108);
-    border: solid black 1px;
-    border-radius: 20px;
-    background-color: white;
-  }
-  
-  .section .container .user
-  {
-      position: absolute;
-      top:0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      display: flex;    
-} 
+.section {
+  text-align: center;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+.section .container {
+  margin: auto;
+  position: relative;
+  width: 800px;
+  height: 500px;
+  box-shadow: 10px 10px 10px rgb(108, 108, 108);
+  border: solid black 1px;
+  border-radius: 20px;
+  background-color: white;
+}
 
+.section .container .user {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
 
-  .section .container .user .imgBx
-  {
-      float:left;
-      position: relative;
-      width: 50%;
-      height: 100%; 
-      border-top-left-radius: 20px;
-      border-bottom-left-radius: 20px;
-      background: #fff;
-      transition: 0.5s;
+.section .container .user .imgBx {
+  float: left;
+  position: relative;
+  width: 50%;
+  height: 100%;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  background: #fff;
+  transition: 0.5s;
+}
+
+.section .container .user .imgBx img {
+  top: 10%;
+  left: 10%;
+  position: absolute;
+  width: 80%;
+  height: 80%;
+  object-fit: contain;
+}
+
+.section .container .user .formBx {
+  overflow: hidden;
+  position: relative;
+  width: 50%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  transition: 0.5s;
+}
+
+.section .container .user .formBx form h2 {
+  font-size: 22px;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-align: center;
+  width: 100%;
+  margin-bottom: 10px;
+  font-family: "Open Sans Condensed", sans-serif;
+  color: #682e65;
+}
+.section .container .user .formBx form label {
+  font-weight: bold;
+  text-transform: uppercase;
+  text-align: center;
+  width: 100%;
+  margin-bottom: 10px;
+  font-family: "Open Sans Condensed", sans-serif;
+}
+.section .container .user .formBx form input {
+  position: relative;
+  width: 100%;
+  padding: 10px;
+  border-radius: 15px;
+  outline: none;
+  box-shadow: none;
+  margin: 8px 0;
+  font-weight: bold;
+  color: black;
+  font-family: "Open Sans Condensed", sans-serif;
+  /* font-family: 'Oswald', sans-serif; */
+}
+.section .container .user .formBx form select {
+  position: relative;
+  width: 100%;
+  padding: 10px;
+  color: #333;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  margin: 8px 0;
+  font-size: 14px;
+  letter-spacing: 1px;
+  font-weight: 300;
+}
+
+.section .container .user .formBx form input[type="submit"] {
+  max-width: 100px;
+  /* background: #677eff; */
+  background: #f58a41;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  font-size: 14px;
+  font-weight: bold;
+  font-family: "Open Sans Condensed", sans-serif;
+  letter-spacing: 1px;
+  transition: 0.5s;
+  border-radius: 20px;
+}
+.section .container .user .formBx form input[type="submit"]:hover {
+  box-shadow: 5px 5px black;
+}
+.section .container .user .formBx form {
+  position: relative;
+  margin-top: 20px;
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: #555;
+  text-transform: uppercase;
+  font-weight: 300;
+}
+.section .container .user .formBx form .register {
+  color: #672e64;
+  font-weight: bold;
+  font-family: "Open Sans Condensed", sans-serif;
+  font-size: 18px;
+  text-decoration: underline;
+}
+.section .container .user .formBx form a {
+  font-weight: 600;
+  text-decoration: none;
+  color: #9e9e9e;
+}
+
+@media (max-width: 991px) {
+  .section .container {
+    max-width: 400px;
   }
-  
-  .section .container .user .imgBx img
-  {
-      top: 10%;
-      left: 10%;
-      position: absolute;
-      width: 80%;
-      height: 80%;
-      object-fit: contain;
+  .section .container .imgBx {
+    display: none;
   }
-  
-  .section .container .user .formBx
-  {
-      overflow: hidden;
-      position: relative;
-      width: 50%;
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 40px;
-      transition: 0.5s;
-      
-  }
-  
-  .section .container .user .formBx form h2
-  {
-      font-size: 22px;
-      font-weight: bold;
-      text-transform: uppercase;
-      text-align: center;
-      width: 100%;
-      margin-bottom: 10px;
-      font-family: 'Open Sans Condensed', sans-serif;
-      color: #C45BBD;
-  }
-  .section .container .user .formBx form label
-  {
-    font-weight: bold;
-    text-transform: uppercase;
-    text-align: center;
+  .section .container .user .formBx {
     width: 100%;
-    margin-bottom: 10px;
-    font-family: 'Open Sans Condensed', sans-serif;
-  } 
-  .section .container .user .formBx form input
-  {
-      position: relative;
-      width: 100%;
-      padding:10px;
-      border-radius: 20px;
-      outline: none;
-      box-shadow: none;
-      margin: 8px 0;
-      font-weight: bold;
-      font-family: 'Open Sans Condensed', sans-serif;
-      /* font-family: 'Oswald', sans-serif; */
   }
-  
-  .section .container .user .formBx form select
-  {
-      position: relative;
-      width: 100%;
-      padding:10px;
-      color: #333;
-      border: none;
-      outline: none;
-      box-shadow: none;
-      margin: 8px 0;
-      font-size: 14px;
-      letter-spacing: 1px;
-      font-weight: 300;
-  }
-  
-  .section .container .user .formBx form input[type="submit"]
-  {
-      max-width: 100px;
-      /* background: #677eff; */
-      background: #F58A41;
-      color: #fff;
-      border: none;
-      cursor: pointer;
-      outline: none;
-      font-size: 14px;
-      font-weight: bold;
-      font-family: 'Open Sans Condensed', sans-serif;
-      letter-spacing: 1px;
-      transition: 0.5s;
-      border-radius: 20px;
-  }
-  
-  .section .container .user .formBx form
-  {
-      position: relative;
-      margin-top: 20px;
-      font-size: 12px;
-      letter-spacing: 1px;
-      color: #555;
-      text-transform: uppercase;
-      font-weight: 300;
-  }
-  .section .container .user .formBx form .register{
-      color: #C45BBD;
-      font-weight: bold;
-      font-family: 'Open Sans Condensed', sans-serif;
-      font-size: 18px;
-      text-decoration: underline;
-  }
-  .section .container .user .formBx form a
-  {
-      font-weight: 600;
-      text-decoration: none;
-      color: #9e9e9e;
-  }
-  
-  @media (max-width: 991px)
-  {
-      .section .container
-      {
-          max-width:400px;
-      }
-      .section .container .imgBx
-      {
-          display:none;       
-      }
-      .section .container .user .formBx
-      {
-          width:100%;
-      }
-  
-  }
-  
+}

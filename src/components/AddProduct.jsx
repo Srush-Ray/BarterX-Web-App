@@ -1,13 +1,16 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { removeSuccess,addSuccess,storeProduct, removeError } from "../store/actions";
+import {
+  removeSuccess,
+  addSuccess,
+  storeProduct,
+  removeError,
+} from "../store/actions";
 import ErrorMessage from "../components/ErrorMessage";
 import SuccessMessage from "../components/SuccessMessage";
-import Sidenav from "../container/SideNav";
-import SideNavPage from "../container/SideNavPage";
-import NavbarPage from "../container/NavbarPage";
 import Footer from "../container/Footer";
-
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 class AddProduct extends Component {
   constructor(props) {
     super(props);
@@ -16,16 +19,16 @@ class AddProduct extends Component {
         productID: "",
         name: "",
         category: "",
-        status:false,
-        owner:"",
-        price:""
+        status: false,
+        owner: "",
+        price: "",
       },
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   componentWillUnmount() {
-    const {removeError, removeSuccess } = this.props;
+    const { removeError, removeSuccess } = this.props;
     removeSuccess();
     removeError();
   }
@@ -34,28 +37,36 @@ class AddProduct extends Component {
     const { storeProduct } = this.props;
     var formData = new FormData(event.target);
     const data = {};
-    let localStorageData=localStorage.wallet.split(",");
-    const usrid=localStorageData[0];
-    const orgName=localStorageData[1];
-    const orgAff=localStorageData[2]; 
-    const email=localStorageData[3];
+    if (localStorage.wallet !== undefined) {
+      let localStorageData = localStorage.wallet.split(",");
+      const usrid = localStorageData[0];
+      const orgName = localStorageData[1];
+      const orgAff = localStorageData[2];
+      const email = localStorageData[3];
 
-    data["productID"] = formData.get("productid") || this.state.data.productid;
-    data["name"] = formData.get("productname") || this.state.data.productname;
-    data["category"] = formData.get("category") || this.state.data.category;
-    data["status"] = formData.get("status") || this.state.data.status;
-    data["owner"] = formData.get("owner") || this.state.data.owner;
-    data["price"] = formData.get("price") || this.state.data.price;
+      data["productID"] =
+        formData.get("productid") || this.state.data.productid;
+      data["name"] = formData.get("productname") || this.state.data.productname;
+      data["category"] = formData.get("category") || this.state.data.category;
+      data["status"] = formData.get("status") || this.state.data.status;
+      data["owner"] = formData.get("owner") || this.state.data.owner;
+      data["price"] = formData.get("price") || this.state.data.price;
 
-    storeProduct("?user_id="+usrid+"&orgName="+orgName,data);
-  //   window.setTimeout(() => {
-  //     window.location.reload(false);      
-  //  }, 5000);  
+      storeProduct("?user_id=" + usrid + "&orgName=" + orgName, data);
+    } else {
+      toast("Login first", {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 1000,
+      });
+    }
+    //   window.setTimeout(() => {
+    //     window.location.reload(false);
+    //  }, 5000);
   }
   render() {
     return (
       <div>
-      <div className="wrapper">
+        <div className="wrapper">
           <div className="container-fluid">
             <div className="container-fluid">
               {
@@ -87,7 +98,7 @@ class AddProduct extends Component {
                         />
                       </div>
                     </div>
-                   
+
                     <div className="form-row my-2">
                       <div className="col-sm-6">
                         Category:
@@ -103,17 +114,13 @@ class AddProduct extends Component {
                       <div className="col-sm-6">
                         Status:
                         <select
-                        id="status"
-                        name="status"
-                        className="form-control"
-                      >
-                        <option value="true">
-                          True
-                        </option>
-                        <option value="false">
-                          False
-                        </option>
-                      </select>
+                          id="status"
+                          name="status"
+                          className="form-control"
+                        >
+                          <option value="true">True</option>
+                          <option value="false">False</option>
+                        </select>
                       </div>
                     </div>
                     <div className="form-row my-2">
@@ -129,36 +136,44 @@ class AddProduct extends Component {
                         />
                       </div>
                       <div className="col-sm-6">
-                      Price:
-                      <input
-                        required
-                        type="text"
-                        name="price"
-                        id="price"
-                        placeholder="eg. John"
-                        className="form-control"
-                      />
+                        Price:
+                        <input
+                          required
+                          type="text"
+                          name="price"
+                          id="price"
+                          placeholder="eg. John"
+                          className="form-control"
+                        />
+                      </div>
                     </div>
-                    </div>
-                   
                   </div>
                   <hr />
                   <div className="text-right">
-                    <button className="btn mx-2" style={{borderRadius:"20px", background: "#F58A41"}} type="reset">
+                    <button
+                      className="btn mx-2 hover"
+                      style={{ borderRadius: "15px", background: "orange" }}
+                      type="reset"
+                    >
                       Reset
                     </button>
-                    <button type="submit"   style={{borderRadius:"20px", background: "#F58A41"}} className="btn">
+                    <button
+                      type="submit"
+                      style={{ borderRadius: "15px", background: "orange" }}
+                      className="btn hover"
+                    >
                       Add Product
                     </button>
                   </div>
                 </form>
               }
-              <span className="mt-2" >
-              <ErrorMessage />
-              <SuccessMessage />
-            </span>
+              <span className="mt-2">
+                <ErrorMessage />
+                <SuccessMessage />
+              </span>
             </div>
           </div>
+          <ToastContainer />
         </div>
         <Footer />
       </div>
@@ -166,8 +181,9 @@ class AddProduct extends Component {
   }
 }
 
-export default connect(
-  (store) => ({
-  }),
-  { removeSuccess,storeProduct,addSuccess ,removeError}
-)(AddProduct);
+export default connect((store) => ({}), {
+  removeSuccess,
+  storeProduct,
+  addSuccess,
+  removeError,
+})(AddProduct);
